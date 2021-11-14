@@ -1,0 +1,1125 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Tutorial: Differential Gene Expression
+Analysis~\\~\\\small{\emph{by \\Roseric Azondekon, PhD\\University of Wisconsin Milwaukee}}}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{differential-gene-expression-analysis}{%
+\section*{Background}\label{background}}
+
+%\emph{by Roseric Azondekon}
+
+%\textbf{04/01/2019}
+
+    In a previous tutorial, we showed you how to download and process
+RNA-seq FASTQ files for read alignment on a reference sequence, and for
+read quantification. In this tutorial, we will show you how to conduct
+Differential Gene Expression (DGE) analysis using the \texttt{DESeq2},
+\texttt{edgeR}, and \texttt{limma-voom} package.
+
+We set our working directory to the \texttt{tuto} folder created in our
+first tutorial.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kp}{setwd}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{./tuto\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Now, let's install all the required packages for this tutorial.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Indicate package repositories to R...}
+        repositories \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{https://cloud.r\PYZhy{}project.org\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://bioconductor.org/packages/3.7/bioc\PYZdq{}}\PY{p}{,}
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://bioconductor.org/packages/3.7/data/annotation\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://bioconductor.org/packages/3.7/data/experiment\PYZdq{}}\PY{p}{,}
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://www.stats.ox.ac.uk/pub/RWin\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{http://www.omegahat.net/R\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://R\PYZhy{}Forge.R\PYZhy{}project.org\PYZdq{}}\PY{p}{,}
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://www.rforge.net\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://cloud.r\PYZhy{}project.org\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{http://www.bioconductor.org\PYZdq{}}\PY{p}{,}
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{http://www.stats.ox.ac.uk/pub/RWin\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Package list to download}
+        packages \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{vsn\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{UpSetR\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{gplots\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{NMF\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{org.Hs.eg.db\PYZdq{}}\PY{p}{,} 
+                      \PY{l+s}{\PYZdq{}}\PY{l+s}{pheatmap\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tximport\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{readr\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{edgeR\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{biomaRt\PYZdq{}}\PY{p}{,}
+                      \PY{l+s}{\PYZdq{}}\PY{l+s}{VennDiagram\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{plyr\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{dplyr\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{DESeq2\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{AnnotationDbi\PYZdq{}}\PY{p}{,}
+                      \PY{l+s}{\PYZdq{}}\PY{l+s}{Biobase\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ensembldb\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ggpubr\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{ggplot2\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{limma\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{magrittr\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Install and load missing packages}
+        new.packages \PY{o}{\PYZlt{}\PYZhy{}} packages\PY{p}{[}\PY{o}{!}\PY{p}{(}packages \PY{o}{\PYZpc{}in\PYZpc{}} installed.packages\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Package\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+        
+        \PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{length}\PY{p}{(}new.packages\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
+            install.packages\PY{p}{(}new.packages\PY{p}{,} repos \PY{o}{=} repositories\PY{p}{)}
+        \PY{p}{\PYZcb{}}
+        
+        \PY{k+kp}{lapply}\PY{p}{(}packages\PY{p}{,} \PY{k+kn}{require}\PY{p}{,} character.only \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+
+    Let's load the \texttt{samples.txt} file which contains our samples
+information.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} samples \PY{o}{\PYZlt{}\PYZhy{}} read.table\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{samples.txt\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{head}\PY{p}{(}samples\PY{p}{)}
+\end{Verbatim}
+
+    We can see that our samples names are contained in the 5th column of the
+\texttt{samples} table. We will use that information as our sample
+names.
+
+The 9 RNA-seq samples are respectively from 3 new-born, 3 middle-aged,
+and 3 long-lived individuals. We represent that information in the
+\texttt{sampleTable} variable as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} conditions \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{factor}\PY{p}{(}\PY{k+kp}{rep}\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{new\PYZus{}born\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{middle\PYZus{}aged\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{long\PYZus{}lived\PYZdq{}}\PY{p}{)}\PY{p}{,} each \PY{o}{=} \PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+        sampleTable \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{data.frame}\PY{p}{(}condition \PY{o}{=} conditions\PY{p}{)}
+        \PY{k+kp}{rownames}\PY{p}{(}sampleTable\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} samples\PY{o}{\PYZdl{}}V5
+        sampleTable
+\end{Verbatim}
+
+    Now that we have downloaded and loaded all the required packages and samples information, we can
+import the read counts into R.
+
+    
+
+    \hypertarget{prepare-data-for-dge-analysis-from-star-feature-counts-data}{%
+\section*{\texorpdfstring{1. Prepare data for DGE analysis from
+\texttt{STAR} feature counts
+data}{1. Prepare data for DGE analysis from STAR feature counts data}}\label{prepare-data-for-dge-analysis-from-star-feature-counts-data}}
+
+    \hypertarget{importing-read-counts-data-to-r-from-star-output}{%
+\subsection*{\texorpdfstring{1.1. Importing read counts data to
+\texttt{R} from \texttt{STAR}
+output}{1.1. Importing read counts data to R from STAR output}}\label{importing-read-counts-data-to-r-from-star-output}}
+
+    Remember that the read counts data from STAR were saved in the
+\texttt{featureCounts\_results.txt} file inside the
+\texttt{read\_counts} folder.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} get the table of read counts}
+        readcounts \PY{o}{\PYZlt{}\PYZhy{}} read.table\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{read\PYZus{}counts/featureCounts\PYZus{}results.txt\PYZdq{}}\PY{p}{,} header \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} table overview}
+        \PY{k+kp}{head}\PY{p}{(}readcounts\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} the gene IDs should be stored as row.names}
+        \PY{k+kp}{row.names}\PY{p}{(}readcounts\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} readcounts\PY{o}{\PYZdl{}}Geneid
+        
+        \PY{c+c1}{\PYZsh{} exclude all columns that do not contain read counts}
+        readcounts \PY{o}{\PYZlt{}\PYZhy{}} readcounts\PY{p}{[}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{6}\PY{p}{)}\PY{p}{]}
+        
+        \PY{k+kp}{head}\PY{p}{(}readcounts\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} give meaningful sample names}
+        \PY{k+kp}{names}\PY{p}{(}readcounts\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} samples\PY{o}{\PYZdl{}}V5
+        \PY{k+kp}{head}\PY{p}{(}readcounts\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{preparing-a-deseqdataset-for-use-with-deseq2}{%
+\subsection*{1.2. Preparing a DESeqDataSet for use with
+DESeq2}\label{preparing-a-deseqdataset-for-use-with-deseq2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} dds\PYZus{}star \PY{o}{\PYZlt{}\PYZhy{}} DESeqDataSetFromMatrix\PY{p}{(}readcounts\PY{p}{,} sampleTable\PY{p}{,} \PY{o}{\PYZti{}}condition\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} remove genes without any counts}
+        dds\PYZus{}star \PY{o}{\PYZlt{}\PYZhy{}} dds\PYZus{}star\PY{p}{[} \PY{k+kp}{rowSums}\PY{p}{(}counts\PY{p}{(}dds\PYZus{}star\PY{p}{)}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m}{0}\PY{p}{,} \PY{p}{]}
+\end{Verbatim}
+
+    The \texttt{dds\_star} object is now ready for the \texttt{DESeq()}
+function. For more, check the see DESeq2 vignette.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Inspect DESeq dataset}
+        colData\PY{p}{(}dds\PYZus{}star\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}} \PY{k+kp}{head}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} investigate different library sizes}
+        \PY{k+kp}{colSums}\PY{p}{(}counts\PY{p}{(}dds\PYZus{}star\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    Our read counts data table is now ready for the downstream DGE analysis.
+Next let's show how to import transcript-level estimates into R from the
+quantification files generated by \texttt{salmon}.
+
+    \hypertarget{importing-transcript-level-estimates-to-r-from-salmon-output}{%
+\section*{\texorpdfstring{2. Importing transcript-level estimates to
+\texttt{R} from \texttt{salmon}
+output}{2. Importing transcript-level estimates to R from salmon output}}\label{importing-transcript-level-estimates-to-r-from-salmon-output}}
+
+    To import the transcript-level estimates, we need a gene annotation
+table for \emph{Homo sapiens}. Such a table can be obtained from the
+\texttt{org.Hs.eg.db} R package.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} get gene annotation table for Homo sapiens}
+        tx2g \PY{o}{\PYZlt{}\PYZhy{}} select\PY{p}{(}org.Hs.eg.db\PY{p}{,}
+                       keys \PY{o}{=} keys\PY{p}{(}org.Hs.eg.db\PY{p}{)}\PY{p}{,}
+                       columns \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{REFSEQ\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{SYMBOL\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{GENENAME\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} tx2g \PY{o}{\PYZlt{}\PYZhy{}} tx2g\PY{p}{[}\PY{p}{,} \PY{l+m}{\PYZhy{}1}\PY{p}{]}
+        \PY{k+kp}{colnames}\PY{p}{(}tx2g\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{TXNAME\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{GENEID\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{GENENAME\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kp}{head}\PY{p}{(}tx2g\PY{p}{)}
+\end{Verbatim}
+
+    Let's find the paths to the quantification. Recall that in the previous
+tutorial, we saved all the quantification files in the \texttt{quants}
+folder.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} search for \PYZsq{}.sf\PYZsq{} file starting from the current working directory}
+        files \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{file.path}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{.\PYZsq{}}\PY{p}{,} \PY{k+kp}{list.files}\PY{p}{(}pattern \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}\PYZbs{}.sf\PYZdl{}\PYZdq{}}\PY{p}{,} recursive \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}\PY{p}{)}
+        files
+\end{Verbatim}
+
+    We now can import all the quantification files using the
+\texttt{tximport()} function provided by the \texttt{tximport} package.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} txi \PY{o}{\PYZlt{}\PYZhy{}} tximport\PY{p}{(}files\PY{p}{,} type \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{salmon\PYZdq{}}\PY{p}{,} tx2gene \PY{o}{=} tx2g\PY{p}{,}ignoreTxVersion\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} give meaningful sample names}
+        \PY{k+kp}{colnames}\PY{p}{(}txi\PY{p}{[[}\PY{l+s}{\PYZsq{}}\PY{l+s}{counts\PYZsq{}}\PY{p}{]]}\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} samples\PY{o}{\PYZdl{}}V5
+        \PY{k+kp}{colnames}\PY{p}{(}txi\PY{p}{[[}\PY{l+s}{\PYZsq{}}\PY{l+s}{length\PYZsq{}}\PY{p}{]]}\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} samples\PY{o}{\PYZdl{}}V5
+        \PY{k+kp}{colnames}\PY{p}{(}txi\PY{p}{[[}\PY{l+s}{\PYZsq{}}\PY{l+s}{abundance\PYZsq{}}\PY{p}{]]}\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} samples\PY{o}{\PYZdl{}}V5
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kp}{names}\PY{p}{(}txi\PY{p}{)}
+\end{Verbatim}
+
+    Let's look at the \texttt{txi} object data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Looking at the counts table}
+        \PY{k+kp}{head}\PY{p}{(}txi\PY{o}{\PYZdl{}}counts\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{preparing-a-deseqdataset-for-use-with-deseq2}{%
+\subsection*{2.1. Preparing a DESeqDataSet for use with
+DESeq2}\label{preparing-a-deseqdataset-for-use-with-deseq2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} dds\PYZus{}salmon \PY{o}{\PYZlt{}\PYZhy{}} DESeqDataSetFromTximport\PY{p}{(}txi\PY{p}{,} sampleTable\PY{p}{,} \PY{o}{\PYZti{}}condition\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} remove genes without any counts}
+        dds\PYZus{}salmon \PY{o}{\PYZlt{}\PYZhy{}} dds\PYZus{}salmon\PY{p}{[} \PY{k+kp}{rowSums}\PY{p}{(}counts\PY{p}{(}dds\PYZus{}salmon\PY{p}{)}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m}{0}\PY{p}{,} \PY{p}{]}
+\end{Verbatim}
+
+    The \texttt{dds\_salmon} object is now ready for the \texttt{DESeq()}
+function. For more, check the see DESeq2 vignette.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Inspect DESeq dataset}
+        colData\PY{p}{(}dds\PYZus{}salmon\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}} \PY{k+kp}{head}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} investigate different library sizes}
+        \PY{k+kp}{colSums}\PY{p}{(}counts\PY{p}{(}dds\PYZus{}salmon\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} should be the same as colSums(txi\PYZdl{}counts)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} investigate different library sizes}
+        \PY{k+kp}{colSums}\PY{p}{(}txi\PY{o}{\PYZdl{}}counts\PY{p}{)} \PY{c+c1}{\PYZsh{} should be the same as colSums(counts(dds))}
+\end{Verbatim}
+
+    From this point, we choose to demonstrate the DGE analysis with
+\texttt{dds\_star}. To make it easy to switch between \texttt{dds\_star}
+and \texttt{dds\_salmon}, we provide the following statement which you
+may change as you wish:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} dds \PY{o}{\PYZlt{}\PYZhy{}} dds\PYZus{}star \PY{c+c1}{\PYZsh{} dds \PYZlt{}\PYZhy{} dds\PYZus{}salmon}
+\end{Verbatim}
+
+    \hypertarget{normalization-and-transformation}{%
+\section*{3. Normalization and
+Transformation}\label{normalization-and-transformation}}
+
+    \hypertarget{normalization-for-sequencing-depth-differences}{%
+\section*{3.1. Normalization for sequencing depth
+differences}\label{normalization-for-sequencing-depth-differences}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} calculate the size factor and add it to the data set}
+        dds \PY{o}{\PYZlt{}\PYZhy{}} estimateSizeFactors\PY{p}{(}dds\PY{p}{)}
+        sizeFactors\PY{p}{(}dds\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} counts() allows you to immediately retrieve the normalized read counts}
+        counts.sf\PYZus{}normalized \PY{o}{\PYZlt{}\PYZhy{}} counts\PY{p}{(}dds\PY{p}{,} normalized \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} inspect counts.sf\PYZus{}normalized}
+        \PY{k+kp}{head}\PY{p}{(}counts.sf\PYZus{}normalized\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{transformation-of-sequencing-depth-normalized-read-counts}{%
+\subsection*{3.2. Transformation of sequencing-depth-normalized read
+counts}\label{transformation-of-sequencing-depth-normalized-read-counts}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} transform size\PYZhy{}factor normalized read counts }
+        \PY{c+c1}{\PYZsh{} to log2 scale using a pseudocount of 1}
+        log.norm.counts \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{log2}\PY{p}{(}counts.sf\PYZus{}normalized \PY{o}{+} \PY{l+m}{1}\PY{p}{)}
+\end{Verbatim}
+
+    Let's see how the log2 transformation compares to the normalized read
+counts
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} first, boxplots of non\PYZhy{}transformed read counts (one per sample)}
+        boxplot\PY{p}{(}counts.sf\PYZus{}normalized\PY{p}{,} 
+                notch \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} 
+                main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{untransformed  read  counts\PYZdq{}}\PY{p}{,} 
+                ylab \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{read  counts\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} box plots of log2\PYZhy{}transformed read counts}
+        boxplot\PY{p}{(}log.norm.counts\PY{p}{,} 
+                notch \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} 
+                main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{log2 \PYZhy{}transformed  read  counts\PYZdq{}}\PY{p}{,} 
+                ylab \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{log2(read  counts)\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{visually-exploring-normalized-read-counts}{%
+\subsection*{3.3. Visually exploring normalized read
+counts}\label{visually-exploring-normalized-read-counts}}
+
+    Let's get an impression of how similar read counts are between
+replicates
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} plot\PY{p}{(}log.norm.counts\PY{p}{[}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{2}\PY{p}{]}\PY{p}{,} cex \PY{o}{=} \PY{l+m}{0.1}\PY{p}{,} 
+             main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Normalized log2 (read counts)\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Checking for heteroskedasticity\ldots{}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} msd\PYZus{}plot \PY{o}{\PYZlt{}\PYZhy{}} meanSdPlot\PY{p}{(}log.norm.counts\PY{p}{,} ranks \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{,} plot \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+        msd\PYZus{}plot\PY{o}{\PYZdl{}}gg \PY{o}{+} ggtitle\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{sequencing depth normalized log2(read counts)\PYZdq{}}\PY{p}{)} \PY{o}{+} 
+                      ylab\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{standard deviation\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    A clear bump on the left-hand side in the figure will indicate that the
+variance is higher for smaller read counts compared to the variance for
+greater read counts.
+
+    \hypertarget{transformation-of-read-counts-including-variance-shrinkage}{%
+\subsection*{3.4. Transformation of read counts including variance
+shrinkage}\label{transformation-of-read-counts-including-variance-shrinkage}}
+
+    Let's reduce the amount of heteroskedasticity by using the
+dispersion-mean trend that can be observed for the entire data set as a
+reference.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} obtain regularized log\PYZhy{}transformed values}
+        DESeq.rlog  \PY{o}{\PYZlt{}\PYZhy{}} rlog\PY{p}{(}dds\PY{p}{,} blind \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+        rlog.norm.counts  \PY{o}{\PYZlt{}\PYZhy{}} assay\PY{p}{(}DESeq.rlog\PY{p}{)}
+        \PY{k+kp}{head}\PY{p}{(}rlog.norm.counts\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} mean\PYZhy{}sd plot for rlog\PYZhy{}transformed data}
+        msd\PYZus{}plot \PY{o}{\PYZlt{}\PYZhy{}} meanSdPlot\PY{p}{(}rlog.norm.counts\PY{p}{,} ranks \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{,} plot \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+        
+        msd\PYZus{}plot\PY{o}{\PYZdl{}}gg \PY{o}{+} ggtitle\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{rlog\PYZhy{}transformed read counts\PYZdq{}}\PY{p}{)} \PY{o}{+} 
+                      ylab\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{standard deviation\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Let's re-examine how similar the rlog\PYZhy{}transformed read counts are
+between replicates.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} plot\PY{p}{(}rlog.norm.counts\PY{p}{[}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{2}\PY{p}{]}\PY{p}{,} cex \PY{o}{=} \PY{l+m}{0.1}\PY{p}{,} 
+             main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Normalized log2(read counts)\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{exploring-global-read-count-patterns}{%
+\subsection*{3.5. Exploring global read count
+patterns}\label{exploring-global-read-count-patterns}}
+
+    An important step before diving into the identification of
+differentially expressed genes is to check whether expectations about
+basic global patterns are met. The similarity of expression patterns can
+be assessed with various methods: - Pairwise correlation - Hierarchical
+clustering, and - Principal Components Analysis (PCA)
+
+    Assessing the similarity of RNA-seq samples in a pair-wise
+fashion\ldots{}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} cor\PY{p}{(}counts.sf\PYZus{}normalized\PY{p}{,} method \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{pearson\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Hierarchical clustering can be used to determine whether the different
+sample types can be separated in an unsupervised fashion (i.e., samples
+of different conditions are more dissimilar to each other than
+replicates within the same condition).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} cor() calculates the correlation between columns of a matrix}
+        distance.m\PYZus{}rlog \PY{o}{\PYZlt{}\PYZhy{}} as.dist\PY{p}{(}\PY{l+m}{1} \PY{o}{\PYZhy{}} cor\PY{p}{(}rlog.norm.counts\PY{p}{,} method \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{pearson\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} plot() can directly interpret the output of hclust()}
+        plot\PY{p}{(}hclust\PY{p}{(}distance.m\PYZus{}rlog\PY{p}{)}\PY{p}{,} 
+             labels \PY{o}{=} \PY{k+kp}{colnames}\PY{p}{(}rlog.norm.counts\PY{p}{)}\PY{p}{,}
+             main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{rlog\PYZhy{}transformed read counts\PYZbs{}ndistance: Pearson correlation\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    PCA is a complementary approach to determine whether samples display
+greater variability between experimental conditions than between
+replicates of the same treatment is principal components analysis.
+
+The goal is to find groups of genes that have certain patterns of
+expression across different samples, so that the information from
+thousands of genes is captured and represented by a reduced number of
+groups.
+
+In base R, the function prcomp() can be used to perform PCA:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} pc \PY{o}{\PYZlt{}\PYZhy{}} prcomp\PY{p}{(}\PY{k+kp}{t}\PY{p}{(}rlog.norm.counts\PY{p}{)}\PY{p}{)}
+        plot\PY{p}{(}pc\PY{o}{\PYZdl{}}x\PY{p}{[}\PY{p}{,} \PY{l+m}{1}\PY{p}{]}\PY{p}{,} pc\PY{o}{\PYZdl{}}x\PY{p}{[}\PY{p}{,} \PY{l+m}{2}\PY{p}{]}\PY{p}{,}
+             col \PY{o}{=} colData\PY{p}{(}dds\PY{p}{)}\PY{p}{[}\PY{p}{,} \PY{l+m}{1}\PY{p}{]}\PY{p}{,}
+             main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{PCA of seq.depth normalized\PYZbs{}n and rlog\PYZhy{}transformed read counts\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    PCA can also be performed using the R package \texttt{DESeq2} which
+offers a convenience function based on \texttt{ggplot2} to do PCA
+directly on a \texttt{DESeqDataSet}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} PCA}
+        P \PY{o}{\PYZlt{}\PYZhy{}} plotPCA\PY{p}{(}DESeq.rlog\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} plot cosmetics}
+        P \PY{o}{\PYZlt{}\PYZhy{}} P \PY{o}{+} theme\PYZus{}bw\PY{p}{(}\PY{p}{)} \PY{o}{+} ggtitle\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{rlog\PYZhy{}transformed counts\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{print}\PY{p}{(}P\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{differential-gene-expression-analysis-dge}{%
+\section*{4. Differential Gene Expression Analysis
+(DGE)}\label{differential-gene-expression-analysis-dge}}
+
+    Let's recall that the two basic tasks of all DGE tools are: 1. Estimate
+the \emph{magnitude} of differential expression between two or more
+conditions based on read counts from replicated samples, i.e., calculate
+the fold change of read counts, taking into account the differences in
+sequencing depth and variability. 2. Estimate the \emph{significance} of
+the difference and correct for multiple testing.
+
+    When it comes to DGE analysis, R offers various tools among which, the
+best performing are: - \texttt{edgeR} (recommended for experiments with
+fewer than 12 replicates) - \texttt{DESeq/DESeq2} (better control of
+false positives and more conservative than \texttt{edgeR}) -
+\texttt{limma-voom} (also more conservative than \texttt{edgeR})
+
+All three packages rely on a \emph{negative binomial} model to fit the
+observed read counts to arrive at the estimate for the difference.
+
+    \hypertarget{running-dge-analysis-with-deseq2}{%
+\subsection*{4.1. Running DGE analysis with
+DESeq2:}\label{running-dge-analysis-with-deseq2}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} DESeq uses the levels of the condition}
+        \PY{c+c1}{\PYZsh{} to determine the order of the comparison}
+        str\PY{p}{(}colData\PY{p}{(}dds\PY{p}{)}\PY{o}{\PYZdl{}}condition\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} set \PYZsq{}new\PYZus{}born\PYZsq{} as the first\PYZhy{}level factor}
+        colData\PY{p}{(}dds\PY{p}{)}\PY{o}{\PYZdl{}}condition \PY{o}{\PYZlt{}\PYZhy{}} relevel\PY{p}{(}colData\PY{p}{(}dds\PY{p}{)}\PY{o}{\PYZdl{}}condition\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{new\PYZus{}born\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Now, we can run the DGE analysis using the \texttt{DESeq()} functiuon
+provided by the \texttt{DESeq2} R package:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Running DGE analysis using the DESeq() function}
+        dds2 \PY{o}{\PYZlt{}\PYZhy{}} DESeq\PY{p}{(}dds\PY{p}{)}
+\end{Verbatim}
+
+    The \texttt{results()} function lets you extract the base means across
+samples, moderated log2 fold changes, standard errors, test statistics
+etc. for every gene.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} DGE.results  \PY{o}{\PYZlt{}\PYZhy{}} results\PY{p}{(}dds2\PY{p}{,} independentFiltering \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} alpha \PY{o}{=} \PY{l+m}{0.05}\PY{p}{)}
+        \PY{k+kp}{summary}\PY{p}{(}DGE.results\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} the DESeqResult object can basically be handled like a data.frame}
+        \PY{k+kp}{head}\PY{p}{(}DGE.results\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} number of differentially expressed genes}
+        \PY{k+kp}{table}\PY{p}{(}DGE.results\PY{o}{\PYZdl{}}padj \PY{o}{\PYZlt{}} \PY{l+m}{0.05}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} list all differentially expressed genes}
+        \PY{k+kp}{rownames}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}DGE.results\PY{p}{,} padj \PY{o}{\PYZlt{}} \PY{l+m}{0.05}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    The \texttt{DESeq()} function is a wrapper around the functions
+\texttt{estimateSizeFactors()}, \texttt{stimateDispersions()}, and
+\texttt{nbinomWaldTest()}, the DGE analysis can alternatively be
+performed as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} sequencing depth normalization between the samples}
+        dds3 \PY{o}{\PYZlt{}\PYZhy{}} estimateSizeFactors\PY{p}{(}dds\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} gene\PYZhy{}wise dispersion estimates across all samples}
+        dds3 \PY{o}{\PYZlt{}\PYZhy{}} estimateDispersions\PY{p}{(}dds3\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} this fits a negative binomial GLM and }
+        \PY{c+c1}{\PYZsh{} applies Wald statistics to each gene}
+        dds3 \PY{o}{\PYZlt{}\PYZhy{}} nbinomWaldTest\PY{p}{(}dds3\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{exploratory-plots-following-dge-analysis-with-deseq2}{%
+\subsubsection*{4.1.1. Exploratory plots following DGE analysis with
+DESeq2}\label{exploratory-plots-following-dge-analysis-with-deseq2}}
+
+    A simple and fast way of inspecting how frequently certain values are
+present in a data set is to plot a histogram of p-values:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} hist\PY{p}{(}DGE.results\PY{o}{\PYZdl{}}pvalue\PY{p}{,} 
+             col \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{grey\PYZdq{}}\PY{p}{,} 
+             border \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{white\PYZdq{}}\PY{p}{,}
+             xlab \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} 
+             ylab \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} 
+             main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{frequencies  of p\PYZhy{}values\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    MA plots provide a general view of the relationship between the
+expression change between condition
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} plotMA\PY{p}{(}DGE.results\PY{p}{,}
+               alpha \PY{o}{=} \PY{l+m}{0.05}\PY{p}{,}  
+               main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{new\PYZhy{}born vs. middle\PYZhy{}aged vs long\PYZhy{}lived conditions\PYZdq{}}\PY{p}{,} 
+               ylim \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{\PYZhy{}4}\PY{p}{,}\PY{l+m}{4}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    Another way to provide a general view of the relationship between the
+expression change between condition is to use a volcano plot:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Volcano plot for a threshold of adjusted pval=0.05 and logFC=7}
+        \PY{k+kp}{with}\PY{p}{(}DGE.results\PY{p}{,} 
+             plot\PY{p}{(}log2FoldChange\PY{p}{,} \PY{o}{\PYZhy{}}\PY{k+kp}{log10}\PY{p}{(}padj\PY{p}{)}\PY{p}{,} pch \PY{o}{=} \PY{l+m}{20}\PY{p}{,} 
+                  main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Volcano plot\PYZdq{}}\PY{p}{,} xlim \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{\PYZhy{}10}\PY{p}{,}\PY{l+m}{10}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k+kp}{with}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}DGE.results\PY{p}{,} padj \PY{o}{\PYZlt{}} \PY{l+m}{0.05}\PY{p}{)}\PY{p}{,} 
+             points\PY{p}{(}log2FoldChange\PY{p}{,}\PY{o}{\PYZhy{}}\PY{k+kp}{log10}\PY{p}{(}padj\PY{p}{)}\PY{p}{,} pch \PY{o}{=} \PY{l+m}{20}\PY{p}{,} col \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k+kp}{with}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}DGE.results\PY{p}{,} padj \PY{o}{\PYZlt{}} \PY{l+m}{0.05} \PY{o}{\PYZam{}} \PY{k+kp}{abs}\PY{p}{(}log2FoldChange\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m}{7}\PY{p}{)}\PY{p}{,} 
+             points\PY{p}{(}log2FoldChange\PY{p}{,} \PY{o}{\PYZhy{}}\PY{k+kp}{log10}\PY{p}{(}padj\PY{p}{)}\PY{p}{,} pch \PY{o}{=} \PY{l+m}{20}\PY{p}{,} col \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    Heatmaps are a popular means to visualize the expression values across
+the individual samples.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} aheatmap needs a matrix of values, e.g., a matrix of DE genes  }
+        \PY{c+c1}{\PYZsh{} with the transformed read counts for each replicate}
+        \PY{c+c1}{\PYZsh{} sort the results according to the adjusted p\PYZhy{}value}
+        \PY{c+c1}{\PYZsh{} DGE.results.sorted \PYZlt{}\PYZhy{} DGE.results[order(DGE.results\PYZdl{}padj), ]}
+        
+        \PY{c+c1}{\PYZsh{} sort the results according to the log2FoldChange}
+        DGE.results.sorted \PY{o}{\PYZlt{}\PYZhy{}} DGE.results\PY{p}{[}\PY{k+kp}{order}\PY{p}{(}DGE.results\PY{o}{\PYZdl{}}log2FoldChange\PY{p}{)}\PY{p}{,} \PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} identify genes with the desired adjusted p\PYZhy{}value cut \PYZhy{}off}
+        \PY{c+c1}{\PYZsh{} DGEgenes \PYZlt{}\PYZhy{} rownames(subset(DGE.results.sorted , padj \PYZlt{} 0.05))}
+        
+        \PY{c+c1}{\PYZsh{} identify genes with the desired cut\PYZhy{}off}
+        DGEgenes \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rownames}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}DGE.results.sorted\PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}log2FoldChange\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m}{7}\PY{p}{)}\PY{p}{)}
+        \PY{k+kp}{length}\PY{p}{(}DGEgenes\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} extract the normalized read counts for DE genes into a matrix}
+        hm.mat\PYZus{}DGEgenes \PY{o}{\PYZlt{}\PYZhy{}} log.norm.counts\PY{p}{[}DGEgenes\PY{p}{,} \PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} scale the read counts per gene to emphasize }
+        \PY{c+c1}{\PYZsh{} the sample type\PYZhy{}specific differences}
+        aheatmap\PY{p}{(}hm.mat\PYZus{}DGEgenes\PY{p}{,} 
+                 Rowv \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}
+                 Colv \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} 
+                 distfun \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{euclidean\PYZdq{}}\PY{p}{,} 
+                 hclustfun \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{average\PYZdq{}}\PY{p}{,} 
+                 scale \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{row\PYZdq{}}\PY{p}{)} 
+        \PY{c+c1}{\PYZsh{} values are transformed into distances from the center}
+        \PY{c+c1}{\PYZsh{} of the row\PYZhy{}specific average: }
+        \PY{c+c1}{\PYZsh{} (actual value \PYZhy{} mean of the group)/standard deviation}
+\end{Verbatim}
+
+    \hypertarget{running-dge-analysis-with-edger}{%
+\subsection*{4.2. Running DGE analysis with
+edgeR}\label{running-dge-analysis-with-edger}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} We need to specify the sample types, similarly to what we did for DESeq2.}
+        sample\PYZus{}info.edger \PY{o}{\PYZlt{}\PYZhy{}} sampleTable\PY{o}{\PYZdl{}}condition
+        sample\PYZus{}info.edger \PY{o}{\PYZlt{}\PYZhy{}} relevel\PY{p}{(}sample\PYZus{}info.edger \PY{p}{,} ref \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{new\PYZus{}born\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} DGEList() is the function that converts the count matrix into an edgeR object.}
+        \PY{c+c1}{\PYZsh{} readcounts \PYZlt{}\PYZhy{} txi\PYZdl{}counts \PYZsh{} uncomment this line when data from salmon}
+        edgeR.DGElist \PY{o}{\PYZlt{}\PYZhy{}} DGEList\PY{p}{(}counts \PY{o}{=} readcounts\PY{p}{,} group \PY{o}{=} sample\PYZus{}info.edger\PY{p}{)}
+        keep \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rowSums}\PY{p}{(} cpm\PY{p}{(}edgeR.DGElist\PY{p}{)} \PY{o}{\PYZgt{}=} \PY{l+m}{1}\PY{p}{)} \PY{o}{\PYZgt{}=} \PY{l+m}{5}
+        edgeR.DGElist \PY{o}{\PYZlt{}\PYZhy{}} edgeR.DGElist\PY{p}{[}keep\PY{p}{,} \PY{p}{]}
+        edgeR.DGElist \PY{o}{\PYZlt{}\PYZhy{}} calcNormFactors\PY{p}{(}edgeR.DGElist\PY{p}{,} method \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{TMM\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} check  the  result}
+        edgeR.DGElist\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{p}{]}
+\end{Verbatim}
+
+    The package \texttt{edgeR} recommends removing genes with almost no
+coverage. In order to determine a sensible cutoff, we plot a histogram
+of counts per million calculated by \texttt{edgeR}'s \texttt{cpm()}
+function.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} get an impression of the coverage across samples}
+        hist\PY{p}{(}\PY{k+kp}{log2}\PY{p}{(}\PY{k+kp}{rowSums}\PY{p}{(}cpm\PY{p}{(}edgeR.DGElist\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} specify the design setup \PYZhy{} the design matrix looks a bit intimitating, }
+        \PY{c+c1}{\PYZsh{} but if you just focus on the formula [\PYZti{}sample\PYZus{}info.edger] }
+        \PY{c+c1}{\PYZsh{} you can see that it\PYZsq{}s exactly what we used for DESeq2, too}
+        design  \PY{o}{\PYZlt{}\PYZhy{}} model.matrix\PY{p}{(}\PY{o}{\PYZti{}}sample\PYZus{}info.edger\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} estimate the dispersion for all read counts across all samples}
+        edgeR.DGElist  \PY{o}{\PYZlt{}\PYZhy{}} estimateDisp\PY{p}{(}edgeR.DGElist\PY{p}{,} design\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} fit the negative binomial model}
+        edger\PYZus{}fit  \PY{o}{\PYZlt{}\PYZhy{}} glmFit\PY{p}{(}edgeR.DGElist\PY{p}{,} design\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} perform the testing for every gene using the neg. binomial model}
+        edger\PYZus{}lrt  \PY{o}{\PYZlt{}\PYZhy{}} glmLRT\PY{p}{(}edger\PYZus{}fit\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} extract results from edger\PYZus{}lrt\PYZdl{}table}
+        DGE.results\PYZus{}edgeR \PY{o}{\PYZlt{}\PYZhy{}} topTags\PY{p}{(}edger\PYZus{}lrt\PY{p}{,} n \PY{o}{=} \PY{k+kc}{Inf}\PY{p}{,} \PY{c+c1}{\PYZsh{} to  retrieve  all  genes}
+                                      sort.by \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{PValue\PYZdq{}}\PY{p}{,} 
+                                      adjust.method \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{BH\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} DGE.results\PYZus{}edgeR\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{,}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} DGE.res\PYZus{}edgeR.sort \PY{o}{\PYZlt{}\PYZhy{}} DGE.results\PYZus{}edgeR\PY{o}{\PYZdl{}}\PY{k+kp}{table}\PY{p}{[}\PY{k+kp}{order}\PY{p}{(}DGE.results\PYZus{}edgeR\PY{o}{\PYZdl{}}\PY{k+kp}{table}\PY{o}{\PYZdl{}}FDR\PY{p}{)}\PY{p}{,} \PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} identify genes with the desired cut\PYZhy{}off}
+        DGEgenes\PYZus{}edgeR \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rownames}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}DGE.res\PYZus{}edgeR.sort\PY{p}{,} FDR \PY{o}{\PYZlt{}=} \PY{l+m}{0.05}\PY{p}{)}\PY{p}{)}
+        \PY{k+kp}{length}\PY{p}{(}DGEgenes\PYZus{}edgeR\PY{p}{)}
+\end{Verbatim}
+
+    Fit a quasi-likelihood negative binomial generalized log-linear model to
+count data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} fit2 \PY{o}{\PYZlt{}\PYZhy{}} glmQLFit\PY{p}{(}edgeR.DGElist\PY{p}{,} design\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Conduct genewise statistical tests for a given coefficient or contrast.}
+        qlf2 \PY{o}{\PYZlt{}\PYZhy{}} glmQLFTest\PY{p}{(}fit2\PY{p}{,}coef\PY{o}{=}\PY{l+m}{2}\PY{p}{)}
+        sm\PY{o}{\PYZlt{}\PYZhy{}}topTags\PY{p}{(}qlf2\PY{p}{,} n \PY{o}{=} \PY{k+kc}{Inf}\PY{p}{,} \PY{c+c1}{\PYZsh{} to  retrieve  all  genes}
+                    sort.by \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{PValue\PYZdq{}}\PY{p}{,} 
+                    adjust.method \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{BH\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} explore results table}
+        sm\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{,}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} DGEgenes\PYZus{}edgeR.QL \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rownames}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}sm\PY{o}{\PYZdl{}}\PY{k+kp}{table}\PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}logFC\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m}{7}\PY{p}{)}\PY{p}{)}
+        \PY{k+kp}{length}\PY{p}{(}DGEgenes\PYZus{}edgeR.QL\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} hist\PY{p}{(}sm\PY{o}{\PYZdl{}}\PY{k+kp}{table}\PY{o}{\PYZdl{}}PValue\PY{p}{,} col \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{grey\PYZdq{}}\PY{p}{,} border \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{white\PYZdq{}}\PY{p}{,}
+             xlab \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} ylab \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{,} main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{frequencies  of p\PYZhy{}values\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Another way to provide a general view of the relationship between the
+expression change between condition is to use a volcano plot:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Volcano plot for a threshold of PValue=0.05 and logFC=7}
+        \PY{k+kp}{with}\PY{p}{(}sm\PY{o}{\PYZdl{}}\PY{k+kp}{table}\PY{p}{,} plot\PY{p}{(}logFC\PY{p}{,} \PY{o}{\PYZhy{}}\PY{k+kp}{log10}\PY{p}{(}PValue\PY{p}{)}\PY{p}{,} pch \PY{o}{=} \PY{l+m}{20}\PY{p}{,} 
+                            main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Volcano plot\PYZdq{}}\PY{p}{,} xlim \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{\PYZhy{}10}\PY{p}{,}\PY{l+m}{10}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k+kp}{with}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}sm\PY{o}{\PYZdl{}}\PY{k+kp}{table}\PY{p}{,} PValue \PY{o}{\PYZlt{}} \PY{l+m}{0.05}\PY{p}{)}\PY{p}{,} 
+             points\PY{p}{(}logFC\PY{p}{,}\PY{o}{\PYZhy{}}\PY{k+kp}{log10}\PY{p}{(}PValue\PY{p}{)}\PY{p}{,} pch \PY{o}{=} \PY{l+m}{20}\PY{p}{,} col \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k+kp}{with}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}sm\PY{o}{\PYZdl{}}\PY{k+kp}{table}\PY{p}{,} PValue \PY{o}{\PYZlt{}} \PY{l+m}{0.05} \PY{o}{\PYZam{}} \PY{k+kp}{abs}\PY{p}{(}logFC\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m}{7}\PY{p}{)}\PY{p}{,} 
+             points\PY{p}{(}logFC\PY{p}{,} \PY{o}{\PYZhy{}}\PY{k+kp}{log10}\PY{p}{(}PValue\PY{p}{)}\PY{p}{,} pch \PY{o}{=} \PY{l+m}{20}\PY{p}{,} col \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    Let's generate the heatmap of the differentially expressed determined by
+the quasi-likelihood negative binomial generalized log-linear model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} extract the normalized read counts for DE genes into a matrix}
+        hm.mat\PYZus{}DGEgenes.edgeR \PY{o}{\PYZlt{}\PYZhy{}} log.norm.counts\PY{p}{[}DGEgenes\PYZus{}edgeR.QL\PY{p}{,} \PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} plot the normalized read counts of DE genes sorted by the adjusted p\PYZhy{}value}
+        \PY{c+c1}{\PYZsh{}aheatmap(hm.mat\PYZus{}DGEgenes.edgeR, Rowv = NA, Colv = NA)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} scale the read counts per gene to emphasize }
+        \PY{c+c1}{\PYZsh{} the sample type\PYZhy{}specific differences}
+        aheatmap\PY{p}{(}hm.mat\PYZus{}DGEgenes.edgeR\PY{p}{,} 
+                 Rowv \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}
+                 Colv \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} 
+                 distfun \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{euclidean\PYZdq{}}\PY{p}{,} 
+                 hclustfun \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{average\PYZdq{}}\PY{p}{,} 
+                 scale \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{row\PYZdq{}}\PY{p}{)} 
+        \PY{c+c1}{\PYZsh{} values are transformed into distances from the center}
+        \PY{c+c1}{\PYZsh{} of the row\PYZhy{}specific average: }
+        \PY{c+c1}{\PYZsh{} (actual value \PYZhy{} mean of the group)/standard deviation}
+\end{Verbatim}
+
+    \hypertarget{running-dge-analysis-with-limma-voom}{%
+\subsection*{\texorpdfstring{4.3. Running DGE analysis with
+\texttt{limma-voom}}{4.3. Running DGE analysis with limma-voom}}\label{running-dge-analysis-with-limma-voom}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} limma also needs a design matrix, just like edgeR}
+        design \PY{o}{\PYZlt{}\PYZhy{}} model.matrix\PY{p}{(}\PY{o}{\PYZti{}}sample\PYZus{}info.edger\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} transform the count  data to log2\PYZhy{}counts \PYZhy{}per \PYZhy{}million and estimate}
+        \PY{c+c1}{\PYZsh{} the mean\PYZhy{}variance relationship, which is used to compute weights}
+        \PY{c+c1}{\PYZsh{} for each count \PYZhy{}\PYZhy{} this is supposed to make the read counts}
+        \PY{c+c1}{\PYZsh{} amenable to be used with linear models}
+        design \PY{o}{\PYZlt{}\PYZhy{}} model.matrix\PY{p}{(}\PY{o}{\PYZti{}}sample\PYZus{}info.edger\PY{p}{)}
+        \PY{k+kp}{rownames}\PY{p}{(}design\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{colnames}\PY{p}{(}edgeR.DGElist\PY{p}{)}
+        voomTransformed \PY{o}{\PYZlt{}\PYZhy{}} voom\PY{p}{(}edgeR.DGElist\PY{p}{,} design\PY{p}{,} plot\PY{o}{=}\PY{n+nb+bp}{F}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} fit a linear model for each gene}
+        voomed.fitted \PY{o}{\PYZlt{}\PYZhy{}} lmFit\PY{p}{(}voomTransformed\PY{p}{,} design \PY{o}{=} design\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} compute moderated t\PYZhy{}statistics, moderated F\PYZhy{}statistics,}
+        \PY{c+c1}{\PYZsh{} and log\PYZhy{}odds of differential expression}
+        voomed.fitted \PY{o}{\PYZlt{}\PYZhy{}} eBayes\PY{p}{(}voomed.fitted\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} extract gene list with logFC and statistical measures}
+        \PY{k+kp}{colnames}\PY{p}{(}design\PY{p}{)} \PY{c+c1}{\PYZsh{} check how the coefficient is named}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} DGE.results\PYZus{}limma \PY{o}{\PYZlt{}\PYZhy{}} topTable\PY{p}{(}voomed.fitted\PY{p}{,}
+                                       coef \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{sample\PYZus{}info.edgermiddle\PYZus{}aged\PYZdq{}}\PY{p}{,}
+                                       number \PY{o}{=} \PY{k+kc}{Inf}\PY{p}{,} 
+                                       adjust.method \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{BH\PYZdq{}}\PY{p}{,}
+                                       sort.by \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{logFC\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kp}{head}\PY{p}{(}DGE.results\PYZus{}limma\PY{p}{[}DGE.results\PYZus{}limma\PY{o}{\PYZdl{}}logFC\PY{o}{\PYZgt{}}\PY{l+m}{3}\PY{p}{,}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} DGE.results\PYZus{}lima.sorted \PY{o}{\PYZlt{}\PYZhy{}} DGE.results\PYZus{}limma\PY{p}{[}\PY{k+kp}{order}\PY{p}{(}DGE.results\PYZus{}limma\PY{o}{\PYZdl{}}adj.P.Val\PY{p}{)}\PY{p}{,} \PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} identify genes with the desired cut\PYZhy{}off}
+        DGEgenes\PYZus{}lima \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rownames}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}DGE.results\PYZus{}lima.sorted \PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}logFC\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m}{7}\PY{p}{)}\PY{p}{)}
+        \PY{k+kp}{length}\PY{p}{(}DGEgenes\PYZus{}lima\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} extract the normalized read counts for DE genes into a matrix}
+        hm.mat\PYZus{}DGEgenes.lima \PY{o}{\PYZlt{}\PYZhy{}} log.norm.counts\PY{p}{[}DGEgenes\PYZus{}lima\PY{p}{,} \PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} plot the normalized read counts of DE genes sorted by the adjusted p\PYZhy{}value}
+        \PY{c+c1}{\PYZsh{}aheatmap(hm.mat\PYZus{}DGEgenes.edgeR , Rowv = NA, Colv = NA)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} scale the read counts per gene to emphasize }
+        \PY{c+c1}{\PYZsh{} the sample type\PYZhy{}specific differences}
+        aheatmap\PY{p}{(}hm.mat\PYZus{}DGEgenes.lima\PY{p}{,} 
+                 Rowv \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}
+                 Colv \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} 
+                 distfun \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{euclidean\PYZdq{}}\PY{p}{,} 
+                 hclustfun \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{average\PYZdq{}}\PY{p}{,} 
+                 scale \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{row\PYZdq{}}\PY{p}{)} 
+        \PY{c+c1}{\PYZsh{} values are transformed into distances from the center}
+        \PY{c+c1}{\PYZsh{} of the row \PYZhy{}specific  average: }
+        \PY{c+c1}{\PYZsh{} (actual value \PYZhy{} mean of the group)/standard deviation}
+\end{Verbatim}
+
+    \hypertarget{venn-diagram-and-upset-plot}{%
+\subsection*{4.4. Venn Diagram and Upset
+plot}\label{venn-diagram-and-upset-plot}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} make a Venn diagram}
+        DE\PYZus{}list \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{list}\PY{p}{(}edger \PY{o}{=} \PY{k+kp}{rownames}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}DGE.results\PYZus{}edgeR\PY{o}{\PYZdl{}}\PY{k+kp}{table}\PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}logFC\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m}{7}\PY{p}{)}\PY{p}{)}
+                         \PY{p}{,}edger\PYZus{}QL \PY{o}{=} \PY{k+kp}{rownames}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}sm\PY{o}{\PYZdl{}}\PY{k+kp}{table}\PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}logFC\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m}{7}\PY{p}{)}\PY{p}{)}
+                         \PY{p}{,}deseq2 \PY{o}{=} \PY{k+kp}{rownames}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}DGE.results\PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}log2FoldChange\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m}{7}\PY{p}{)}\PY{p}{)}
+                         \PY{p}{,}limma \PY{o}{=} \PY{k+kp}{rownames}\PY{p}{(}\PY{k+kp}{subset}\PY{p}{(}DGE.results\PYZus{}limma\PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}logFC\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m}{7}\PY{p}{)}\PY{p}{)}
+                        \PY{p}{)}
+        
+        gplots\PY{o}{::}venn\PY{p}{(}DE\PYZus{}list\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} more sophisticated venn alternative, especially if you }
+        \PY{c+c1}{\PYZsh{} are comparing  more than 3 lists}
+        DE\PYZus{}gns \PY{o}{\PYZlt{}\PYZhy{}} UpSetR\PY{o}{::}fromList\PY{p}{(}DE\PYZus{}list\PY{p}{)}
+        UpSetR\PY{o}{::}upset\PY{p}{(}DE\PYZus{}gns\PY{p}{,} order.by \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{freq\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} list the Differentially Expressed genes }
+        \PY{c+c1}{\PYZsh{} by categories displayed in the Venn Diagram}
+        out \PY{o}{\PYZlt{}\PYZhy{}} gplots\PY{o}{::}venn\PY{p}{(}DE\PYZus{}list\PY{p}{,} show.plot \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)}
+        out
+\end{Verbatim}
+
+    
+
+    The Venn Diagram and the Upset plot conclude our tutorial on DGE
+analysis. You may want to check the documentation of each of the
+packages used in this tutorial.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

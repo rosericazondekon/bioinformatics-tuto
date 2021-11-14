@@ -1,0 +1,714 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{DNA methylation tutorial: Data Analysis~\\~\\\small{\emph{by \\Roseric Azondekon, PhD\\University of Wisconsin Milwaukee}}}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{dna-methylation-tutorial-data-analysis}{%
+\section*{Background}\label{background}}
+
+    In a previous tutorial, we showed you how to download and process
+Bisulfite-seq DNA methylation FASTQ files for read alignment on a
+reference sequence. In this tutorial, we show you how to run DNA
+methylation analysis using the \texttt{methylKit} package in \texttt{R}.
+
+We set our working directory to the \texttt{tuto} folder created in our
+first tutorial.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kp}{setwd}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{./tuto\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Now, let's install all the required packages for this tutorial.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Indicate package repositories to R...}
+        repositories \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{https://cloud.r\PYZhy{}project.org\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://bioconductor.org/packages/3.7/bioc\PYZdq{}}\PY{p}{,}
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://bioconductor.org/packages/3.7/data/annotation\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://bioconductor.org/packages/3.7/data/experiment\PYZdq{}}\PY{p}{,}
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://www.stats.ox.ac.uk/pub/RWin\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{http://www.omegahat.net/R\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://R\PYZhy{}Forge.R\PYZhy{}project.org\PYZdq{}}\PY{p}{,}
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://www.rforge.net\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://cloud.r\PYZhy{}project.org\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{http://www.bioconductor.org\PYZdq{}}\PY{p}{,}
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{http://www.stats.ox.ac.uk/pub/RWin\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Package list to download}
+        packages \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{BiocGenerics\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Biobase\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{S4Vectors\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{IRanges\PYZdq{}}\PY{p}{,}
+                      \PY{l+s}{\PYZdq{}}\PY{l+s}{GenomicRanges\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{GenomeInfoDb\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{AnnotationDbi\PYZdq{}}\PY{p}{,} 
+                      \PY{l+s}{\PYZdq{}}\PY{l+s}{genomation\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{fastseg\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{methylKit\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Install and load missing packages}
+        new.packages \PY{o}{\PYZlt{}\PYZhy{}} packages\PY{p}{[}\PY{o}{!}\PY{p}{(}packages \PY{o}{\PYZpc{}in\PYZpc{}} installed.packages\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Package\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+        
+        
+        \PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{length}\PY{p}{(}new.packages\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
+            install.packages\PY{p}{(}new.packages\PY{p}{,} repos \PY{o}{=} repositories\PY{p}{)}
+        \PY{p}{\PYZcb{}}
+        
+        \PY{k+kp}{lapply}\PY{p}{(}packages\PY{p}{,} \PY{k+kn}{require}\PY{p}{,} character.only \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{obtaining-methylation-percentage-from-sorted-bismark-alignments}{%
+\section{Obtaining methylation percentage from sorted Bismark
+alignments}\label{obtaining-methylation-percentage-from-sorted-bismark-alignments}}
+
+    We read in the methylation calls directly from the \texttt{SAM} files
+obtained from the last tutoral. The SAM files must be sorted and be
+generated from Bismark aligner. For that purpose, we use the
+\texttt{processBismarkAln} function from the \texttt{methylKit} package
+as described below:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Find all sorted SAM files}
+        file\PYZus{}loc \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{file.path}\PY{p}{(}\PY{k+kp}{getwd}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{alignment\PYZus{}Bismark\PYZsq{}}\PY{p}{)}
+        file.list \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{as.list}\PY{p}{(}\PY{k+kp}{list.files}\PY{p}{(}file\PYZus{}loc\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}\PYZbs{}.sort.sam\PYZdl{}\PYZdq{}}\PY{p}{,}
+                                        full.names \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} recursive \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}\PY{p}{)}
+        file.list
+\end{Verbatim}
+
+    Now, let's read in the methylation data from the \texttt{SAM} files
+(\emph{this has to be run once}).
+
+\textbf{This may take a long time!}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Read the methylation data into an object (Has to be run once)}
+        metyl.obj \PY{o}{\PYZlt{}\PYZhy{}} processBismarkAln\PY{p}{(}file.list\PY{p}{,} 
+                                       sample.id \PY{o}{=} \PY{k+kt}{list}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{normal1\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{normal2\PYZdq{}}\PY{p}{,}
+                                                        \PY{l+s}{\PYZdq{}}\PY{l+s}{cancer1\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{cancer2\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                                       treatment \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{1}\PY{p}{)}\PY{p}{,}
+                                       assembly \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{hg38\PYZdq{}}\PY{p}{,}
+                                       read.context \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{CpG\PYZdq{}}\PY{p}{,}
+                                       save.folder \PY{o}{=} \PY{k+kp}{file.path}\PY{p}{(}\PY{k+kp}{getwd}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{methylation\PYZus{}calls\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kp}{head}\PY{p}{(}metyl.obj\PY{p}{,}\PY{l+m}{3}\PY{p}{)}
+\end{Verbatim}
+
+    When already computed, the set of methylation call files can be imported
+using the \texttt{methRead} function provided by the \texttt{methylKit}
+package.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} This code may be run if the methylation call files already exist}
+        file\PYZus{}loc2 \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{file.path}\PY{p}{(}\PY{k+kp}{getwd}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{methylation\PYZus{}calls\PYZsq{}}\PY{p}{)}
+        file.list2 \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{as.list}\PY{p}{(}\PY{k+kp}{list.files}\PY{p}{(}file\PYZus{}loc2\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}\PYZbs{}CpG.txt\PYZdl{}\PYZdq{}}\PY{p}{,}
+                                         full.names \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}
+                                         recursive \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}\PY{p}{)}
+        file.list2
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} methyl.obj2 \PY{o}{\PYZlt{}\PYZhy{}} methRead\PY{p}{(}file.list2\PY{p}{,}
+                               sample.id \PY{o}{=} \PY{k+kt}{list}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{cancer1\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{cancer2\PYZdq{}}\PY{p}{,}
+                                                \PY{l+s}{\PYZdq{}}\PY{l+s}{normal1\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{normal2\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                               treatment\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{0}\PY{p}{)}\PY{p}{,} 
+                               assembly \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{hg38\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kp}{head}\PY{p}{(}methyl.obj2\PY{p}{,}\PY{l+m}{3}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{quality-check-and-basic-features-of-the-data}{%
+\section{Quality check and basic features of the
+data}\label{quality-check-and-basic-features-of-the-data}}
+
+    Let's check the basic stats about the methylation data such as coverage
+and percent methylation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Descriptive statistics on the samples}
+        getMethylationStats\PY{p}{(}metyl.obj\PY{p}{[[}\PY{l+m}{1}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} normal1}
+        getMethylationStats\PY{p}{(}metyl.obj\PY{p}{[[}\PY{l+m}{2}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} normal2}
+        getMethylationStats\PY{p}{(}metyl.obj\PY{p}{[[}\PY{l+m}{3}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} cancer1}
+        getMethylationStats\PY{p}{(}metyl.obj\PY{p}{[[}\PY{l+m}{4}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} cancer2}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Histogram of \PYZpc{} CpG methylation}
+        getMethylationStats\PY{p}{(}metyl.obj\PY{p}{[[}\PY{l+m}{1}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} normal1}
+        getMethylationStats\PY{p}{(}metyl.obj\PY{p}{[[}\PY{l+m}{2}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} normal2}
+        getMethylationStats\PY{p}{(}metyl.obj\PY{p}{[[}\PY{l+m}{3}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} cancer1}
+        getMethylationStats\PY{p}{(}metyl.obj\PY{p}{[[}\PY{l+m}{4}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} cancer2}
+\end{Verbatim}
+
+    On the histograms above, the numbers on bars represent the percentage of
+locations that are contained in that bin. Percent methylation histogram
+are expected to have two peaks on both ends.
+
+    Alternatively, the histogram of the read coverage per base information
+can be plotted as well. Experiments that are highly suffering from PCR
+duplication bias are expected to have a secondary peak towards the right
+hand side of the histogram.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Histogram of CpG coverage}
+        getCoverageStats\PY{p}{(}metyl.obj\PY{p}{[[}\PY{l+m}{1}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} normal1}
+        getCoverageStats\PY{p}{(}metyl.obj\PY{p}{[[}\PY{l+m}{2}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} normal2}
+        getCoverageStats\PY{p}{(}metyl.obj\PY{p}{[[}\PY{l+m}{3}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} cancer1}
+        getCoverageStats\PY{p}{(}metyl.obj\PY{p}{[[}\PY{l+m}{4}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} cancer2}
+\end{Verbatim}
+
+    \hypertarget{filtering-samples-based-on-read-coverage}{%
+\section{Filtering samples based on read
+coverage}\label{filtering-samples-based-on-read-coverage}}
+
+    It is a good practice to filter samples based on coverage, and discard
+bases that have coverage below 10X bases that have more than 99.9th
+percentile of coverage in each sample. This can be achieved with the
+following code:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} filtered.metyl.obj \PY{o}{\PYZlt{}\PYZhy{}} filterByCoverage\PY{p}{(}metyl.obj\PY{p}{,} 
+                                               lo.count \PY{o}{=} \PY{l+m}{10}\PY{p}{,}
+                                               lo.perc \PY{o}{=} \PY{k+kc}{NULL}\PY{p}{,}
+                                               hi.count \PY{o}{=} \PY{k+kc}{NULL}\PY{p}{,}
+                                               hi.perc \PY{o}{=} \PY{l+m}{99.9}\PY{p}{)}
+\end{Verbatim}
+
+    Let's assess once again the basic stats about the methylation data such
+as coverage and percent methylation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Histogram of \PYZpc{} CpG methylation}
+        getMethylationStats\PY{p}{(}filtered.metyl.obj\PY{p}{[[}\PY{l+m}{1}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} normal1}
+        getMethylationStats\PY{p}{(}filtered.metyl.obj\PY{p}{[[}\PY{l+m}{2}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} normal2}
+        getMethylationStats\PY{p}{(}filtered.metyl.obj\PY{p}{[[}\PY{l+m}{3}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} cancer1}
+        getMethylationStats\PY{p}{(}filtered.metyl.obj\PY{p}{[[}\PY{l+m}{4}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} cancer2}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Histogram of CpG coverage}
+        getCoverageStats\PY{p}{(}filtered.metyl.obj\PY{p}{[[}\PY{l+m}{1}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} normal1}
+        getCoverageStats\PY{p}{(}filtered.metyl.obj\PY{p}{[[}\PY{l+m}{2}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} normal2}
+        getCoverageStats\PY{p}{(}filtered.metyl.obj\PY{p}{[[}\PY{l+m}{3}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} cancer1}
+        getCoverageStats\PY{p}{(}filtered.metyl.obj\PY{p}{[[}\PY{l+m}{4}\PY{p}{]]}\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,} both.strands \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)} \PY{c+c1}{\PYZsh{} cancer2}
+\end{Verbatim}
+
+    \hypertarget{sample-correlation}{%
+\section{Sample correlation}\label{sample-correlation}}
+
+    To conduct sample correlation, we will need to merge all samples to one
+object for base-pair locations that are covered in all samples.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Merging all samples}
+        merged.obj \PY{o}{=} unite\PY{p}{(}filtered.metyl.obj\PY{p}{,} destrand \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Taking a glance at the data...}
+        \PY{k+kp}{head}\PY{p}{(}merged.obj\PY{p}{,}\PY{l+m}{3}\PY{p}{)}
+\end{Verbatim}
+
+    The sample correlation is computed using the \texttt{getCorrelation}
+function availble in \texttt{methylKit}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Sample correlation}
+        getCorrelation\PY{p}{(}merged.obj\PY{p}{,} plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{clustering-samples}{%
+\section{Clustering samples}\label{clustering-samples}}
+
+    The \texttt{clusterSamples} function in \texttt{methylKit} can be used
+to perform the hierarchical clustering of the samples based on their
+methylation profiles.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} clusterSamples\PY{p}{(}merged.obj\PY{p}{,} dist \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{correlation\PYZdq{}}\PY{p}{,} method \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{ward\PYZdq{}}\PY{p}{,} plot\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{)}
+\end{Verbatim}
+
+    Principal Component Analysis (PCA) is another available method to
+cluster the samples. We perform PCA using the the \texttt{PCASamples}
+function, then plot the Screeplot.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Screeplot (PCA analysis) }
+        PCASamples\PY{p}{(}merged.obj\PY{p}{,} screeplot \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+
+    Here, we plot PC1 (principal component 1) and PC2 (principal component
+2) axis and a scatter plot of our samples on those axis which reveals
+how they cluster.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Scatterplot (PCA analysis)}
+        PCASamples\PY{p}{(}merged.obj\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{getting-differentially-methylated-bases}{%
+\section{Getting differentially methylated
+bases}\label{getting-differentially-methylated-bases}}
+
+    The function \texttt{calculateDiffMeth} is the main function to
+calculate differential methylation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Finding differentially methylated bases or }
+        \PY{c+c1}{\PYZsh{} regions (using 8 cores for faster calculations)}
+        methyl.diff \PY{o}{\PYZlt{}\PYZhy{}} calculateDiffMeth\PY{p}{(}merged.obj\PY{p}{,} num.cores \PY{o}{=} \PY{l+m}{8}\PY{p}{)}
+\end{Verbatim}
+
+    Following bit selects the bases that have q-value \textless{} 0.01 and
+percent methylation difference larger than 25\%.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} get hyper methylated bases}
+        myDiff25p.hyper \PY{o}{\PYZlt{}\PYZhy{}} getMethylDiff\PY{p}{(}methyl.diff\PY{p}{,}
+                                         difference \PY{o}{=} \PY{l+m}{25}\PY{p}{,}
+                                         qvalue \PY{o}{=} \PY{l+m}{0.01}\PY{p}{,}
+                                         type \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{hyper\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} get hypo methylated bases}
+        myDiff25p.hypo \PY{o}{\PYZlt{}\PYZhy{}} getMethylDiff\PY{p}{(}methyl.diff\PY{p}{,}
+                                        difference \PY{o}{=} \PY{l+m}{25}\PY{p}{,}
+                                        qvalue \PY{o}{=} \PY{l+m}{0.01}\PY{p}{,}
+                                        type \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{hypo\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} get all differentially methylated bases}
+        myDiff25p \PY{o}{\PYZlt{}\PYZhy{}} getMethylDiff\PY{p}{(}methyl.diff\PY{p}{,}
+                                   difference \PY{o}{=} \PY{l+m}{25}\PY{p}{,}
+                                   qvalue \PY{o}{=} \PY{l+m}{0.01}\PY{p}{)}
+\end{Verbatim}
+
+    The package \texttt{methylKit} can summarize methylation information
+over tiling windows or over a set of predefined regions (promoters, CpG
+islands, introns, etc.) rather than doing base-pair resolution analysis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} tiles \PY{o}{\PYZlt{}\PYZhy{}} tileMethylCounts\PY{p}{(}merged.obj\PY{p}{,} win.size \PY{o}{=} \PY{l+m}{1000}\PY{p}{,} step.size \PY{o}{=} \PY{l+m}{1000}\PY{p}{)}
+        \PY{k+kp}{head}\PY{p}{(}tiles\PY{p}{,} \PY{l+m}{3}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{differential-methylation-events-per-chromosome}{%
+\section{Differential methylation events per
+chromosome}\label{differential-methylation-events-per-chromosome}}
+
+    We can also visualize the distribution of hypo/hyper-methylated
+bases/regions per chromosome using the \texttt{diffMethPerChr} function.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Return a list having per chromosome}
+        \PY{c+c1}{\PYZsh{} differentially methylation events will be returned}
+        diffMethPerChr\PY{p}{(}methyl.diff\PY{p}{,}
+                       plot \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{,}
+                       qvalue.cutoff \PY{o}{=} \PY{l+m}{0.01}\PY{p}{,}
+                       meth.cutoff \PY{o}{=} \PY{l+m}{25}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} visualize the distribution of hypo/hyper\PYZhy{}methylated}
+        \PY{c+c1}{\PYZsh{} bases/regions per chromosome}
+        diffMethPerChr\PY{p}{(}methyl.diff\PY{p}{,}
+                       plot \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{,}
+                       qvalue.cutoff \PY{o}{=} \PY{l+m}{0.01}\PY{p}{,}
+                       meth.cutoff \PY{o}{=} \PY{l+m}{25}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{annotating-differential-methylation-events}{%
+\section{Annotating differential methylation
+events}\label{annotating-differential-methylation-events}}
+
+    We can annotate our differentially methylated regions/bases based on
+gene annotation. We need to read the gene annotation from a bed file and
+annotate our differentially methylated regions with that information.
+Similar gene annotation can be created using \texttt{GenomicFeatures}
+package available from Bioconductor.
+
+Let's first download an annotation \texttt{.bed} file in the
+\texttt{annotation} folder created in our first tutorial on DNA
+methylation. We get ours from \href{https://sourceforge.net/projects/rseqc/files/BED/Human_Homo_sapiens/}{sourceforge.net}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} url \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{https://sourceforge.net/projects/rseqc/files/BED/Human\PYZus{}Homo\PYZus{}sapiens/\PYZdq{}}
+        \PY{k+kp}{system}\PY{p}{(}\PY{k+kp}{paste0}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{wget \PYZhy{}P annotation \PYZdq{}}\PY{p}{,}\PY{k+kp}{url}\PY{p}{,}\PY{l+s}{\PYZdq{}hg38\PYZus{}RefSeq.bed.gz\PYZdq{}}\PY{p}{))}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} gene.obj \PY{o}{\PYZlt{}\PYZhy{}} readTranscriptFeatures\PY{p}{(}\PY{k+kp}{file.path}\PY{p}{(}\PY{k+kp}{getwd}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                                                     \PY{l+s}{\PYZdq{}}\PY{l+s}{annotation\PYZdq{}}\PY{p}{,}
+                                                     \PY{l+s}{\PYZdq{}}\PY{l+s}{hg38\PYZus{}RefSeq.bed.gz\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} annotateWithGeneParts\PY{p}{(}as\PY{p}{(}myDiff25p\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{GRanges\PYZdq{}}\PY{p}{)}\PY{p}{,}gene.obj\PY{p}{)}
+\end{Verbatim}
+
+    Similarly, we can read the CpG island annotation and annotate our
+differentially methylated bases/regions with them.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} read the shores and flanking regions and name the flanks as shores }
+        \PY{c+c1}{\PYZsh{} and CpG islands as CpGi}
+        cpg.obj \PY{o}{\PYZlt{}\PYZhy{}} readFeatureFlank\PY{p}{(}\PY{k+kp}{file.path}\PY{p}{(}\PY{k+kp}{getwd}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{annotation\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{hg38\PYZus{}RefSeq.bed.gz\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                                    feature.flank.name\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{CpGi\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{shores\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} convert methylDiff object to GRanges and annotate}
+        diffCpGann \PY{o}{\PYZlt{}\PYZhy{}} annotateWithFeatureFlank\PY{p}{(}as\PY{p}{(}myDiff25p\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{GRanges\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                                               cpg.obj\PY{o}{\PYZdl{}}CpGi\PY{p}{,}
+                                               cpg.obj\PY{o}{\PYZdl{}}shores\PY{p}{,}
+                                               feature.name\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{CpGi\PYZdq{}}\PY{p}{,}
+                                               flank.name\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{shores\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} diffCpGann
+\end{Verbatim}
+
+    \hypertarget{regional-analysis}{%
+\section{Regional analysis}\label{regional-analysis}}
+
+    We now summarize methylation information over a set of defined regions
+such as promoters or CpG islands with the \texttt{regionCounts}
+function.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} promoters \PY{o}{\PYZlt{}\PYZhy{}} regionCounts\PY{p}{(}metyl.obj\PY{p}{,}gene.obj\PY{o}{\PYZdl{}}promoters\PY{p}{)}
+        \PY{k+kp}{head}\PY{p}{(}promoters\PY{p}{[[}\PY{l+m}{1}\PY{p}{]]}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{getting-the-distance-to-tss-and-nearest-gene-name}{%
+\section{Getting the distance to TSS and nearest gene
+name}\label{getting-the-distance-to-tss-and-nearest-gene-name}}
+
+    After getting the annotation of differentially methylated regions, we
+can get the distance to TSS and nearest gene name using the
+\texttt{getAssociationWithTSS} function from genomation package.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} diffAnn \PY{o}{\PYZlt{}\PYZhy{}} annotateWithGeneParts\PY{p}{(}as\PY{p}{(}myDiff25p\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{GRanges\PYZdq{}}\PY{p}{)}\PY{p}{,} gene.obj\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} target.row is the row number in myDiff25p}
+        \PY{k+kp}{head}\PY{p}{(}getAssociationWithTSS\PY{p}{(}diffAnn\PY{p}{)}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}
+\end{Verbatim}
+
+    Getting the percentage/number of differentially methylated regions that
+overlap with intron/exon/promoters:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} genomation\PY{o}{::}getTargetAnnotationStats\PY{p}{(}diffAnn\PY{p}{,} 
+                                             percentage\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,}
+                                             precedence\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{working-with-annotated-methylation-events}{%
+\section{Working with annotated methylation
+events}\label{working-with-annotated-methylation-events}}
+
+    We can also plot the percentage of differentially methylated bases
+overlapping with exon/intron/promoters
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} genomation\PY{o}{::}plotTargetAnnotation\PY{p}{(}diffAnn\PY{p}{,} 
+                                         precedence \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} 
+                                         main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Differential methylation annotation\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    It is also possible to plot the CpG island annotation showing the
+percentage of differentially methylated bases that are on CpG islands,
+CpG island shores and other regions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} genomation\PY{o}{::}plotTargetAnnotation\PY{p}{(}diffCpGann\PY{p}{,} 
+                                         col \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{green\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{gray\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{white\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                                         main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{differential methylation annotation\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

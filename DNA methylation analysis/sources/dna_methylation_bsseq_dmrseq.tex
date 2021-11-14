@@ -1,0 +1,666 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{DNA methylation tutorial: Bisulfite-seq Data Analysis with bsseq and dmrseq~\\~\\\small{\emph{by \\Roseric Azondekon, PhD\\University of Wisconsin Milwaukee}}}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{dna-methylation-tutorial-data-analysis}{%
+\section*{Background}\label{background}}
+%
+%\emph{by Roseric Azondekon, PhD}
+%
+%\textbf{06/06/2019}
+
+    In a previous tutorial, we showed you how to download and process
+Bisulfite-seq DNA methylation FASTQ files for read alignment on a
+reference sequence. In this tutorial, we show you how to run DNA
+methylation analysis using the \texttt{bsseq} and \texttt{dmrseq}
+package in \texttt{R}.
+
+We set our working directory to the \texttt{tuto} folder created in our
+first tutorial.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kp}{setwd}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{./tuto\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Now, let's install all the required packages for this tutorial.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Indicate package repositories to R...}
+        repositories \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{https://cloud.r\PYZhy{}project.org\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://bioconductor.org/packages/3.7/bioc\PYZdq{}}\PY{p}{,}
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://bioconductor.org/packages/3.7/data/annotation\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://bioconductor.org/packages/3.7/data/experiment\PYZdq{}}\PY{p}{,}
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://www.stats.ox.ac.uk/pub/RWin\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{http://www.omegahat.net/R\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://R\PYZhy{}Forge.R\PYZhy{}project.org\PYZdq{}}\PY{p}{,}
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://www.rforge.net\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{https://cloud.r\PYZhy{}project.org\PYZdq{}}\PY{p}{,} 
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{http://www.bioconductor.org\PYZdq{}}\PY{p}{,}
+                           \PY{l+s}{\PYZdq{}}\PY{l+s}{http://www.stats.ox.ac.uk/pub/RWin\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Package list to download}
+        packages \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{bsseq\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{bsseqdata\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{dmrseq\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Install and load missing packages}
+        new.packages \PY{o}{\PYZlt{}\PYZhy{}} packages\PY{p}{[}\PY{o}{!}\PY{p}{(}packages \PY{o}{\PYZpc{}in\PYZpc{}} installed.packages\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Package\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+        
+        \PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{length}\PY{p}{(}new.packages\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
+            install.packages\PY{p}{(}new.packages\PY{p}{,} repos \PY{o}{=} repositories\PY{p}{)}
+        \PY{p}{\PYZcb{}}
+        
+        \PY{k+kp}{lapply}\PY{p}{(}packages\PY{p}{,} \PY{k+kn}{require}\PY{p}{,} character.only \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{obtaining-methylation-data-from-bismark-extraction-methylation-calls}{%
+\section{Obtaining methylation data from Bismark extraction methylation
+calls}\label{obtaining-methylation-data-from-bismark-extraction-methylation-calls}}
+
+    We read in the methylation calls directly from the \texttt{Bismark}
+methylation extractor files obtained from the last tutoral. The files
+are located within the \texttt{bismark\_methCalls} folder (see previous
+tutorial). For that purpose, we use the \texttt{read.bismark()} function
+from the \texttt{bsseq} package as described below:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} files\PYZus{}loc \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{file.path}\PY{p}{(}\PY{k+kp}{getwd}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{bismark\PYZus{}methCalls\PYZsq{}}\PY{p}{)}
+        samples \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{list.dirs}\PY{p}{(}files\PYZus{}loc\PY{p}{,}full.names \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{,}recursive \PY{o}{=} \PY{n+nb+bp}{F}\PY{p}{)}
+        samples
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} conditions \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{k+kp}{rep}\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{normal\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{cancer\PYZdq{}}\PY{p}{)}\PY{p}{,} each \PY{o}{=} \PY{l+m}{2}\PY{p}{)}\PY{p}{)}
+        sampleData \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{data.frame}\PY{p}{(}condition \PY{o}{=} conditions\PY{p}{)}
+        \PY{k+kp}{rownames}\PY{p}{(}sampleData\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} samples
+        sampleData
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} methyl\PYZus{}files \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{list.files}\PY{p}{(}files\PYZus{}loc\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}\PYZbs{}cov.gz\PYZdl{}\PYZdq{}}\PY{p}{,} 
+                                   full.names\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,} recursive\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+        methyl\PYZus{}files
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Will generate specifically for this set of data, 4 variables: }
+        \PY{c+c1}{\PYZsh{} methyl\PYZus{}data1, methyl\PYZus{}data2, methyl\PYZus{}data3, methyl\PYZus{}data4}
+        \PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}\PY{k+kp}{length}\PY{p}{(}methyl\PYZus{}files\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
+            sampleTable \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{data.frame}\PY{p}{(}condition \PY{o}{=} conditions\PY{p}{[}i\PY{p}{]}\PY{p}{)}
+            \PY{k+kp}{rownames}\PY{p}{(}sampleTable\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} samples\PY{p}{[}i\PY{p}{]}
+            \PY{k+kp}{assign}\PY{p}{(}
+                \PY{k+kp}{paste0}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{methyl\PYZus{}data\PYZdq{}}\PY{p}{,}i\PY{p}{)}\PY{p}{,}
+                read.bismark\PY{p}{(}methyl\PYZus{}files\PY{p}{[}i\PY{p}{]}\PY{p}{,}
+                             loci \PY{o}{=} \PY{k+kc}{NULL}\PY{p}{,}
+                             colData \PY{o}{=} sampleTable\PY{p}{,}
+                             rmZeroCov \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{,}
+                             strandCollapse \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}
+                             BPPARAM \PY{o}{=} bpparam\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                             BACKEND \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{HDF5Array\PYZdq{}}\PY{p}{,}
+                             dir \PY{o}{=} \PY{k+kp}{tempfile}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{bsseq\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                             replace \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{,}
+                             chunkdim \PY{o}{=} \PY{k+kc}{NULL}\PY{p}{,}
+                             level \PY{o}{=} \PY{k+kc}{NULL}\PY{p}{,}
+                             nThread \PY{o}{=} \PY{l+m}{8}\PY{p}{,}
+                             verbose \PY{o}{=} \PY{k+kp}{getOption}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{verbose\PYZdq{}}\PY{p}{)}\PY{p}{)}
+            \PY{p}{)}
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} methyl\PYZus{}data1
+        methyl\PYZus{}data2
+        methyl\PYZus{}data3
+        methyl\PYZus{}data4
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} pData\PY{p}{(}methyl\PYZus{}data1\PY{p}{)}
+        pData\PY{p}{(}methyl\PYZus{}data2\PY{p}{)}
+        pData\PY{p}{(}methyl\PYZus{}data3\PY{p}{)}
+        pData\PY{p}{(}methyl\PYZus{}data4\PY{p}{)}
+\end{Verbatim}
+
+    We now combine all methylation data for all 4 samples:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} combined\PYZus{}data \PY{o}{\PYZlt{}\PYZhy{}} combine\PY{p}{(}methyl\PYZus{}data1\PY{p}{,} methyl\PYZus{}data2\PY{p}{,} methyl\PYZus{}data3\PY{p}{,} methyl\PYZus{}data4\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} combined\PYZus{}data
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} pData\PY{p}{(}combined\PYZus{}data\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{smoothing}{%
+\section{Smoothing}\label{smoothing}}
+
+    The first step of the analysis is to smooth the data
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} combined\PYZus{}data.fit \PY{o}{\PYZlt{}\PYZhy{}} BSmooth\PY{p}{(}
+            bsseq \PY{o}{=} combined\PYZus{}data\PY{p}{,} 
+            BPPARAM \PY{o}{=} MulticoreParam\PY{p}{(}workers \PY{o}{=} \PY{l+m}{7}\PY{p}{)}\PY{p}{,} 
+            verbose \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+
+    Since the previous step is time consuming and computationally expensive,
+let's save the smoothed data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kp}{save}\PY{p}{(}combined\PYZus{}data.fit\PY{p}{,} file \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{combined\PYZus{}data\PYZus{}fit.rda\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    You may load the \texttt{combined\_data.fit} by running the following
+code:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kp}{load}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{combined\PYZus{}data\PYZus{}fit.rda\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} combined\PYZus{}data.fit
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{} The average coverage of CpGs on the two chromosomes}
+        \PY{k+kp}{round}\PY{p}{(}\PY{k+kp}{colMeans}\PY{p}{(}getCoverage\PY{p}{(}combined\PYZus{}data\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Number of CpGs in two chromosomes}
+        \PY{k+kp}{length}\PY{p}{(}combined\PYZus{}data\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Number of CpGs which are covered by at least 1 read in all 4 samples}
+        \PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{rowSums}\PY{p}{(}getCoverage\PY{p}{(}combined\PYZus{}data\PY{p}{)} \PY{o}{\PYZgt{}=} \PY{l+m}{1}\PY{p}{)} \PY{o}{==} \PY{l+m}{4}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Number of CpGs with 0 coverage in all samples}
+        \PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{rowSums}\PY{p}{(}getCoverage\PY{p}{(}combined\PYZus{}data\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{l+m}{0}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{computing-t-statistics}{%
+\section{Computing t-statistics}\label{computing-t-statistics}}
+
+    To avoid too many differentially methilated regions (DRMs), we remove
+CpGs with little or no coverage (which are likely false positives). We
+keep CpGs where at least 1 cancer samples and at least 1 normal samples
+have at least 2x in coverage.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} which loci and sample indices to keep}
+        keep.index \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{which}\PY{p}{(}DelayedMatrixStats\PY{o}{::}rowSums2\PY{p}{(}getCoverage\PY{p}{(}combined\PYZus{}data\PY{p}{,} 
+                                                                     type\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Cov\PYZdq{}}\PY{p}{)}\PY{o}{==}\PY{l+m}{0}\PY{p}{)} \PY{o}{==} \PY{l+m}{0}\PY{p}{)}
+        sample.index \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{which}\PY{p}{(}pData\PY{p}{(}combined\PYZus{}data\PY{p}{)}\PY{o}{\PYZdl{}}condition \PY{o}{\PYZpc{}in\PYZpc{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{normal\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{cancer\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        
+        combined\PYZus{}data.filtered \PY{o}{\PYZlt{}\PYZhy{}} combined\PYZus{}data\PY{p}{[}keep.index\PY{p}{,} sample.index\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} combined\PYZus{}data.filtered
+\end{Verbatim}
+
+    For t-statistics, we will only keep CpGs where at least 2 cancer samples
+and at least 2 normal samples have at least 2x in coverage.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} combined\PYZus{}data.cov \PY{o}{\PYZlt{}\PYZhy{}} getCoverage\PY{p}{(}combined\PYZus{}data.fit\PY{p}{)}
+        keep.index2 \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{which}\PY{p}{(}\PY{k+kp}{rowSums}\PY{p}{(}combined\PYZus{}data.cov\PY{p}{[}\PY{p}{,}
+                                     combined\PYZus{}data\PY{o}{\PYZdl{}}condition \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{cancer\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}=} \PY{l+m}{2}\PY{p}{)} \PY{o}{\PYZgt{}=} \PY{l+m}{2} \PY{o}{\PYZam{}}
+                             \PY{k+kp}{rowSums}\PY{p}{(}combined\PYZus{}data.cov\PY{p}{[}\PY{p}{,} 
+                                     combined\PYZus{}data\PY{o}{\PYZdl{}}condition \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{normal\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}=} \PY{l+m}{2}\PY{p}{)} \PY{o}{\PYZgt{}=} \PY{l+m}{2}\PY{p}{)}
+        \PY{k+kp}{length}\PY{p}{(}keep.index2\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} combined\PYZus{}data.fit2 \PY{o}{\PYZlt{}\PYZhy{}} combined\PYZus{}data.fit\PY{p}{[}keep.index2\PY{p}{]}
+\end{Verbatim}
+
+    Let's first arrange the two groups for the t-test:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} In grp1, we keep all the normal sample names, and}
+        \PY{c+c1}{\PYZsh{} in grp2, all the cancer sample names}
+        grp1 \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rownames}\PY{p}{(}sampleData\PY{p}{)}\PY{p}{[}sampleData\PY{o}{\PYZdl{}}condition \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{normal\PYZsq{}}\PY{p}{]}
+        grp2 \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rownames}\PY{p}{(}sampleData\PY{p}{)}\PY{p}{[}sampleData\PY{o}{\PYZdl{}}condition \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{cancer\PYZsq{}}\PY{p}{]}
+        grp1
+        grp2
+\end{Verbatim}
+
+    We now compute t-statistics with the \texttt{BSmooth.tstat} function
+provided by the \texttt{bsseq} R package.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} combined\PYZus{}data.tstat \PY{o}{\PYZlt{}\PYZhy{}} BSmooth.tstat\PY{p}{(}combined\PYZus{}data.fit2\PY{p}{,}
+                                             group1 \PY{o}{=} grp2\PY{p}{,}
+                                             group2 \PY{o}{=} grp1\PY{p}{,} 
+                                             estimate.var \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{group2\PYZdq{}}\PY{p}{,}
+                                             local.correct \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}
+                                             mc.cores \PY{o}{=} \PY{l+m}{8}\PY{p}{,}
+                                             verbose \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} combined\PYZus{}data.tstat
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} stats \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{as.data.frame}\PY{p}{(}combined\PYZus{}data.tstat\PY{o}{@}stats\PY{p}{)}
+        \PY{k+kp}{head}\PY{p}{(}stats\PY{p}{)}
+\end{Verbatim}
+
+    Let's check the marginal distribution of the t-statistic:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} plot\PY{p}{(}density\PY{p}{(}\PY{k+kp}{as.numeric}\PY{p}{(}\PY{k+kp}{as.vector}\PY{p}{(}stats\PY{o}{\PYZdl{}}tstat.corrected\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                     na.rm\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{)}\PY{p}{,} xlim \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{\PYZhy{}15}\PY{p}{,} \PY{l+m}{15}\PY{p}{)}\PY{p}{,} col \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{,} main \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+        lines\PY{p}{(}density\PY{p}{(}\PY{k+kp}{as.numeric}\PY{p}{(}\PY{k+kp}{as.vector}\PY{p}{(}stats\PY{o}{\PYZdl{}}tstat\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                      na.rm\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{)}\PY{p}{,} col \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}
+        legend\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{topright\PYZdq{}}\PY{p}{,} legend\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{corrected\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{uncorrected\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+               col\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{,} lty\PY{o}{=}\PY{l+m}{1}\PY{p}{)}
+\end{Verbatim}
+
+    The ``blocks'' of hypomethylation are clearly visible in the marginal
+distribution of the uncorrected t-statistics.
+
+    \hypertarget{finding-differentially-methylated-regions-dmrs}{%
+\section{Finding Differentially Methylated Regions
+(DMRs)}\label{finding-differentially-methylated-regions-dmrs}}
+
+    We use the \texttt{dmrseq} function of the \texttt{dmrseq} R package to
+compute the DMRs.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} run the results for a subset of 60,000 CpGs in the interest of computation time.}
+        \PY{c+c1}{\PYZsh{} Run with a single core if it fails on multiple cores (workers=1)}
+        dmrs \PY{o}{\PYZlt{}\PYZhy{}} dmrseq\PY{p}{(}bs\PY{o}{=}combined\PYZus{}data.filtered\PY{p}{[}\PY{l+m}{240001}\PY{o}{:}\PY{l+m}{300000}\PY{p}{,}\PY{p}{]}\PY{p}{,}
+                       cutoff \PY{o}{=} \PY{l+m}{0.05}\PY{p}{,}
+                       BPPARAM \PY{o}{=} MulticoreParam\PY{p}{(}workers \PY{o}{=} \PY{l+m}{1}\PY{p}{)}\PY{p}{,}
+                       testCovariate\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{condition\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} show\PY{p}{(}dmrs\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{explore-how-many-regions-were-significant}{%
+\subsection{Explore how many regions were
+significant}\label{explore-how-many-regions-were-significant}}
+
+    How many regions were significant at the FDR (q-value) cutoff of 0.05?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kp}{sum}\PY{p}{(}dmrs\PY{o}{\PYZdl{}}qval \PY{o}{\PYZlt{}} \PY{l+m}{0.05}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} select just the regions below FDR 0.05 and place in a new data.frame}
+        sigRegions \PY{o}{\PYZlt{}\PYZhy{}} dmrs\PY{p}{[}dmrs\PY{o}{\PYZdl{}}qval \PY{o}{\PYZlt{}} \PY{l+m}{0.05}\PY{p}{,}\PY{p}{]}
+\end{Verbatim}
+
+    \hypertarget{proportion-of-regions-with-hyper-methylation}{%
+\subsection{Proportion of regions with
+hyper-methylation}\label{proportion-of-regions-with-hyper-methylation}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kp}{sum}\PY{p}{(}sigRegions\PY{o}{\PYZdl{}}stat \PY{o}{\PYZgt{}} \PY{l+m}{0}\PY{p}{)} \PY{o}{/} \PY{k+kp}{length}\PY{p}{(}sigRegions\PY{p}{)}
+\end{Verbatim}
+
+    To interpret the direction of effect, since \texttt{dmrseq} uses
+alphabetical order of the covariate of interest, the condition
+\texttt{cancer} is the reference category.
+
+    \hypertarget{plot-dmrs}{%
+\subsection{Plot DMRs}\label{plot-dmrs}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} get annotations for hg18}
+        annotation \PY{o}{\PYZlt{}\PYZhy{}} getAnnot\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{hg18\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} plotDMRs\PY{p}{(}combined\PYZus{}data.filtered\PY{p}{,}
+                 regions\PY{o}{=}dmrs\PY{p}{[}\PY{l+m}{1}\PY{p}{,}\PY{p}{]}\PY{p}{,} 
+                 testCovariate\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{condition\PYZdq{}}\PY{p}{,}
+                 annoTrack\PY{o}{=}annotation\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{detecting-large-scale-methylation-blocks}{%
+\section{Detecting large-scale methylation
+blocks}\label{detecting-large-scale-methylation-blocks}}
+
+    In some applications, such as cancer, it is of interest to effectively
+`zoom out' in order to detect larger (lower-resolution) methylation
+blocks on the order of hundreds of thousands to millions of bases.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} run the results for a subset of 300,000 CpGs in the interest of computation time.}
+        \PY{c+c1}{\PYZsh{} Run with a single core if it fails on multiple cores}
+        blocks \PY{o}{\PYZlt{}\PYZhy{}} dmrseq\PY{p}{(}bs\PY{o}{=}combined\PYZus{}data.filtered\PY{p}{[}\PY{l+m}{120001}\PY{o}{:}\PY{l+m}{420000}\PY{p}{,}\PY{p}{]}\PY{p}{,}
+                         cutoff \PY{o}{=} \PY{l+m}{0.05}\PY{p}{,}
+                         testCovariate\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{condition\PYZsq{}}\PY{p}{,}
+                         block \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,}
+                         BPPARAM \PY{o}{=} MulticoreParam\PY{p}{(}workers \PY{o}{=} \PY{l+m}{1}\PY{p}{)}\PY{p}{,}
+                         minInSpan \PY{o}{=} \PY{l+m}{500}\PY{p}{,}
+                         bpSpan \PY{o}{=} \PY{l+m}{5e4}\PY{p}{,}
+                         maxGapSmooth \PY{o}{=} \PY{l+m}{1e6}\PY{p}{,}
+                         maxGap \PY{o}{=} \PY{l+m}{5e3}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} show\PY{p}{(}blocks\PY{p}{)}
+\end{Verbatim}
+
+    Let's also plot the top methylation block from the block analysis:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} plotDMRs\PY{p}{(}combined\PYZus{}data.filtered\PY{p}{,} 
+                 regions\PY{o}{=}blocks\PY{p}{[}\PY{l+m}{1}\PY{p}{,}\PY{p}{]}\PY{p}{,} 
+                 testCovariate\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{condition\PYZdq{}}\PY{p}{,}
+                 annoTrack\PY{o}{=}annotation\PY{p}{)}
+\end{Verbatim}
+
+    
+
+    This last DMR plot concludes this tutorial on DNA methylation analysis
+with the \href{http://bioconductor.org/packages/release/bioc/vignettes/bsseq/inst/doc/bsseq_analysis.html}{\texttt{bsseq}} and \href{https://bioconductor.org/packages/devel/bioc/vignettes/dmrseq/inst/doc/dmrseq.html}{\texttt{dmrseq}} R packages. For more
+information, feel free to check the official bsseq and dmrseq tutorials.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

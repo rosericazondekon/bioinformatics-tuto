@@ -1,0 +1,591 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{DNA methylation tutorial: Data download and Alignment~\\~\\\small{\emph{by \\Roseric Azondekon, PhD\\University of Wisconsin Milwaukee}}}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+
+    \hypertarget{background}{%
+\section*{Background}\label{background}}
+    In this tutorial, we show you how to download raw Bisulfite-seq DNA
+methylation sequence data from the European instance of the SRA, which
+can be accessed via https://www.ebi.ac.uk/ena. At ENA, the sequencing
+reads are directly available in FASTQ or SRA formats, which will be
+explained below.
+
+For this tutorial, we need \href{https://www.bioinformatics.babraham.ac.uk/projects/fastqc/}{\texttt{FastQC}}, \href{https://multiqc.info/}{\texttt{multiQC}}, the \href{https://www.ncbi.nlm.nih.gov/sra/docs/toolkitsoft/}{\texttt{SRA toolkit}}, a powerful suite of tools designed to interact with SAM and BAM files called \href{https://sourceforge.net/projects/samtools/files/}{\texttt{samtools}}, and the \href{https://github.com/FelixKrueger/Bismark}{\texttt{Bismark}} aligner to align the Bisulfite-seq reads to the
+reference genome. All the above mentioned tools need to be installed and
+referenced in the environment variable \texttt{PATH}. Let's first check
+if this requirement is met:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{fastqc}} \PYZhy{}\PYZhy{}version
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{multiqc}} \PYZhy{}\PYZhy{}version
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{fastq\PYZhy{}dump}} \PYZhy{}\PYZhy{}version
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{samtools}} \PYZhy{}\PYZhy{}version
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{bismark}} \PYZhy{}\PYZhy{}version
+\end{Verbatim}
+
+    If at least one of the above commands produces an error, please, check
+your installation of the tool and try again.
+
+Now let's create a working directory for our DNA methylation
+bisulfite-seq project.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{mkdir}} \PYZhy{}p tuto \PY{o}{\PYZam{}\PYZam{}} \PY{n+nb}{cd} tuto
+\end{Verbatim}
+
+    \hypertarget{data-download}{%
+\section{Data Download}\label{data-download}}
+
+    To download a set of SRA files: 1. Go to \url{https://www.ebi.ac.uk/ena}. 2.
+Search for the accession number of the project, e.g., SRP041828 (should
+be indicated in the published paper). 3. There are several ways to start
+the download, here we show you how to do it through the command line
+interface on GNU/Linux. - copy the link's address of the ``SRA files''
+column (right mouse click), go to the command line, move to the target
+directory, type:
+\texttt{wget\ \textless{}\ link\ copied\ from\ the\ ENA\ website\ \textgreater{}}
+- If there are many samples as it is the case for the project referenced
+here (accession number: SRP041828), you can download the summary of the
+sample information from ENA by right-clicking on ``TEXT'' and copying
+the link location.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{wget}} \PYZhy{}O all\PYZus{}samples.txt \PY{l+s+s2}{\PYZdq{}https://www.ebi.ac.uk/ena/data/warehouse\PYZbs{}}
+        \PY{l+s+s2}{/filereport?accession=PRJNA246552\PYZam{}result=read\PYZus{}run\PYZam{}fields=study\PYZus{}accession,\PYZbs{}}
+        \PY{l+s+s2}{sample\PYZus{}accession,secondary\PYZus{}sample\PYZus{}accession,experiment\PYZus{}accession,\PYZbs{}}
+        \PY{l+s+s2}{run\PYZus{}accession,tax\PYZus{}id,scientific\PYZus{}name,instrument\PYZus{}model,library\PYZus{}layout,\PYZbs{}}
+        \PY{l+s+s2}{fastq\PYZus{}ftp,fastq\PYZus{}galaxy,submitted\PYZus{}ftp,submitted\PYZus{}galaxy,sra\PYZus{}ftp,sra\PYZus{}galaxy,\PYZbs{}}
+        \PY{l+s+s2}{cram\PYZus{}index\PYZus{}ftp,cram\PYZus{}index\PYZus{}galaxy\PYZam{}download=txt\PYZdq{}}
+\end{Verbatim}
+
+    You may try to open the \texttt{all\_samples.txt} file with LibreOffice
+or Excel to view it. For this project, we are only interested in the
+paired-end first 4 Bisulfite-seq samples (2 normal cells samples vs 2
+breast cancer cells samples). Since the first line in
+\texttt{all\_samples.txt} contains the header, we will generate another
+file containing only the first 4 lines of \texttt{all\_samples.txt} with
+the following command:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{sed}} \PY{l+s+s1}{\PYZsq{}1d\PYZsq{}} all\PYZus{}samples.txt \PYZgt{} all\PYZus{}samples2.txt
+        {\color{magenta}{head}} \PYZhy{}4 all\PYZus{}samples2.txt \PYZgt{} samples.txt
+        {\color{magenta}{rm}} all\PYZus{}samples2.txt
+\end{Verbatim}
+
+    Now, let's create a new folder for our SRA files.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{mkdir}} \PYZhy{}p sra\PYZus{}files
+\end{Verbatim}
+
+    According to \url{https://www.ncbi.nlm.nih.gov/books/NBK158899/}, the FTP root
+to download files from NCBI is \url{ftp://ftp-trace.ncbi.nih.gov/} and the
+remainder path follow the specific pattern
+\texttt{/sra/sra-instant/reads/ByRun/sra/\{SRR\textbar{}ERR\textbar{}DRR\}/\textless{}first\ 6\ characters\ of\ accession\textgreater{}/\textless{}accession\textgreater{}/\textless{}accession\textgreater{}.sra}.
+
+    Notice that the accession number for the SRA files are located in the
+5th column ``Run accession'' in \texttt{all\_samples.txt}. We proceed to
+the download of the SRA files of the samples listed in
+\texttt{samples.txt} with the following code: \\
+(\textbf{Attention: The download may take a long time!})
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{cut}} \PYZhy{}f5 samples.txt \PY{p}{|} {\color{magenta}{xargs}} \PYZhy{}i bash \PYZhy{}c \PY{l+s+se}{\PYZbs{}}
+                \PY{l+s+s1}{\PYZsq{}v=\PYZob{}\PYZcb{}; FTPROOT=ftp://ftp\PYZhy{}trace.ncbi.nih.gov/; \PYZbs{}}
+        \PY{l+s+s1}{               REM=sra/sra\PYZhy{}instant/reads/ByRun/sra/; \PYZbs{}}
+        \PY{l+s+s1}{               url=\PYZdl{}\PYZob{}FTPROOT\PYZcb{}\PYZdl{}\PYZob{}REM\PYZcb{}\PYZdl{}\PYZob{}v:0:3\PYZcb{}/\PYZdl{}\PYZob{}v:0:6\PYZcb{}/\PYZdl{}\PYZob{}v\PYZcb{}/\PYZdl{}\PYZob{}v\PYZcb{}.sra; \PYZbs{}}
+        \PY{l+s+s1}{               wget \PYZdl{}url \PYZhy{}P sra\PYZus{}files\PYZsq{}}
+\end{Verbatim}
+
+    
+
+    \hypertarget{converting-sra-files-to-fastq-files}{%
+\section{Converting SRA files to FASTQ
+files}\label{converting-sra-files-to-fastq-files}}
+
+    Now that the download is complete, let's convert the SRA files into FASTQ files with the following command: \\
+(\textbf{Attention: This may take a long time!})
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{cut}} \PYZhy{}f5 samples.txt \PY{p}{|} {\color{magenta}{xargs}} \PYZhy{}i bash \PYZhy{}c \PY{l+s+se}{\PYZbs{}}
+                \PY{l+s+s1}{\PYZsq{}v=\PYZob{}\PYZcb{}; fastq\PYZhy{}dump \PYZhy{}\PYZhy{}outdir fastq/\PYZdl{}\PYZob{}v\PYZcb{} \PYZhy{}\PYZhy{}gzip \PYZbs{}}
+        \PY{l+s+s1}{                          \PYZhy{}\PYZhy{}skip\PYZhy{}technical \PYZhy{}\PYZhy{}split\PYZhy{}3 sra\PYZus{}files/\PYZdl{}\PYZob{}v\PYZcb{}.sra\PYZsq{}}
+\end{Verbatim}
+
+    
+
+    \hypertarget{quality-control-of-the-fastq-files}{%
+\section{Quality Control of the FASTQ
+files}\label{quality-control-of-the-fastq-files}}
+
+    Up to this point, we have all our RNA-seq FASTQ files ready for Quality
+Control (QC) check. This is done with the \texttt{fastqc} tools
+developed by the Babraham Institute. Run the following command to
+perform QC check for all the samples: (\textbf{This may take some
+time!})
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{cut}} \PYZhy{}f5 samples.txt \PY{p}{|} {\color{magenta}{xargs}} \PYZhy{}i bash \PYZhy{}c \PY{l+s+se}{\PYZbs{}}
+                \PY{l+s+s1}{\PYZsq{}v=\PYZob{}\PYZcb{}; \PYZbs{}}
+        \PY{l+s+s1}{         mkdir \PYZhy{}p fastqc\PYZus{}reports/\PYZdl{}\PYZob{}v\PYZcb{}; \PYZbs{}}
+        \PY{l+s+s1}{         fastqc fastq/\PYZdl{}\PYZob{}v\PYZcb{}/*fastq.gz \PYZhy{}o fastqc\PYZus{}reports/\PYZdl{}\PYZob{}v\PYZcb{}\PYZsq{}}
+\end{Verbatim}
+
+    Next, let's summarize the QC reports (for all the samples) into one
+unique report using \texttt{multiqc}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{multiqc}} fastqc\PYZus{}reports \PYZhy{}\PYZhy{}dirs \PYZhy{}o multiQC\PYZus{}report/
+\end{Verbatim}
+
+    Let's examine the summary \texttt{multiqc} report either by
+double-clicking on \texttt{multiQC\_report/multiqc\_report.html} or by executing the following code:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{xdg\PYZhy{}open}} multiQC\PYZus{}report/multiqc\PYZus{}report.html
+\end{Verbatim}
+
+    
+
+    \hypertarget{read-alignment}{%
+\section{Read Alignment}\label{read-alignment}}
+
+    The assignment of sequencing reads to the most likely locus of origin is
+called read alignment or mapping and it is a crucial step in most types
+of high-throughput sequencing experiments.
+
+The general challenge of short read alignment is to map millions of
+reads accurately and in a reasonable time, despite the presence of
+sequencing errors, genomic variation and repetitive elements. The
+different alignment programs employ various strategies that are meant to
+speed up the process (e.g., by indexing the reference genome) and find a
+balance between mapping fidelity and error tolerance.
+
+    \hypertarget{reference-genome}{%
+\subsection{Reference genome}\label{reference-genome}}
+
+    Genome sequences and annotation are often generated by consortia such as
+(mod)ENCODE, The Mouse Genome Project, The Berkeley Drosophila Genome
+Project, and many more. The results of these efforts can either be
+downloaded from individual websites set up by the respective consortia
+or from more comprehensive data bases such as the one hosted by the
+University of California, Santa Cruz (\href{https://genome.ucsc.edu/}{UCSC}) or the European genome
+resource (\href{http://www.ensembl.org/}{Ensembl}).
+
+Reference sequences are usually stored in plain text FASTA files that
+can either be compressed with the generic gzip command. 
+%The annotationfile is often stored as a GTF (Gene Transfer Format) despite the availability of several other file formats.
+
+The reference sequences file can be obtained either from \href{https://www.ncbi.nlm.nih.gov/genome/51}{NCBI}, \href{https://www.ensembl.org/info/data/ftp/index.html}{ENSEMBL} or \href{http://hgdownload.soe.ucsc.edu/downloads.html#human}{UCSC Genome Browser}.
+
+For this DNA methylation (Bisulfite-seq) tutorial, we align the
+reads against the genome (DNA) reference sequences. We the
+genome refernce sequences and our gene annotation files from \href{http://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/}{UCSC}. This is very important as we intend to perform all downstream DNA methylation analysis using the \texttt{methylKit} package in \texttt{R} which works nominally with UCSC genome references.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Download the latest human genome}
+        {\color{magenta}{wget}} \PYZhy{}P reference http://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz
+\end{Verbatim}
+
+    \hypertarget{aligning-reads-using-bismark-aligner}{%
+\subsection{\texorpdfstring{Aligning reads using \texttt{Bismark}
+aligner}{4.2. Aligning reads using Bismark aligner}}\label{aligning-reads-using-bismark-aligner}}
+
+    \hypertarget{generate-genome-index}{%
+\subsubsection{Generate genome
+index}\label{generate-genome-index}}
+
+    \textbf{This step has to be done only once per genome type (and
+alignment program). It may take a long time!}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} {\color{magenta}{bismark\PYZus{}genome\PYZus{}preparation}} \PYZhy{}\PYZhy{}verbose ./reference
+\end{Verbatim}
+
+    \hypertarget{alignment}{%
+\subsubsection{Alignment}\label{alignment}}
+
+    This step has to be done for each individual FASTQ file.\\
+    \textbf{This step may take a long time! (may take several days to
+complete)}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} execute Bismark aligner}
+        {\color{magenta}{cut}} \PYZhy{}f5 samples.txt \PY{p}{|} {\color{magenta}{xargs}} \PYZhy{}i bash \PYZhy{}c \PY{l+s+se}{\PYZbs{}}
+        \PY{l+s+s1}{\PYZsq{}v=\PYZob{}\PYZcb{}; mkdir \PYZhy{}p alignment\PYZus{}Bismark/\PYZdl{}\PYZob{}v\PYZcb{}; \PYZbs{}}
+        \PY{l+s+s1}{bismark \PYZhy{}\PYZhy{}parallel 8 \PYZhy{}\PYZhy{}gzip \PYZhy{}\PYZhy{}fastq \PYZhy{}\PYZhy{}output\PYZus{}dir alignment\PYZus{}Bismark/\PYZdl{}\PYZob{}v\PYZcb{} \PYZbs{}}
+        \PY{l+s+s1}{\PYZhy{}\PYZhy{}genome ./reference \PYZhy{}1 fastq/\PYZdl{}\PYZob{}v\PYZcb{}/\PYZdl{}\PYZob{}v\PYZcb{}\PYZus{}1.fastq.gz \PYZhy{}2 fastq/\PYZdl{}\PYZob{}v\PYZcb{}/\PYZdl{}\PYZob{}v\PYZcb{}\PYZus{}2.fastq.gz\PYZsq{}}
+\end{Verbatim}
+
+    \hypertarget{sorting-bam-files-and-converting-to-sam-files}{%
+\subsubsection{Sorting BAM files and converting to SAM
+files}\label{sorting-bam-files-and-converting-to-sam-files}}
+
+    We sort sort the \texttt{BAM} files using the \texttt{samtools\ sort}
+command:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Sorting the bam files and converting to }
+        \PY{k}{for} i in alignment\PYZus{}Bismark/*/*\PY{p}{;} \PY{k}{do}
+            \PY{k}{if} \PY{o}{[} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}\PYZob{}}\PY{n+nv}{i}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}} !\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZdl{}\PYZob{}}\PY{n+nv}{i}\PY{p}{\PYZpc{}pe.bam}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{]}\PY{p}{;}\PY{k}{then}
+                {\color{magenta}{samtools sort}} \PYZhy{}l \PY{l+m}{0} \PY{l+s+se}{\PYZbs{}}
+                              \PYZhy{}T \PY{k}{\PYZdl{}(}dirname \PY{l+s+si}{\PYZdl{}\PYZob{}}\PY{n+nv}{i}\PY{l+s+si}{\PYZcb{}}\PY{k}{)}/\PY{k}{\PYZdl{}(}basename \PY{l+s+si}{\PYZdl{}\PYZob{}}\PY{n+nv}{i}\PY{l+s+si}{\PYZcb{}} \PY{l+s+se}{\PYZbs{}}
+                                          \PYZus{}1\PYZus{}bismark\PYZus{}bt2\PYZus{}pe.bam\PY{k}{)}\PYZus{}temp \PY{l+s+se}{\PYZbs{}}
+                              \PYZhy{}O sam \PYZhy{}@ \PY{l+m}{8} \PY{l+s+se}{\PYZbs{}}
+                              \PYZhy{}o \PY{k}{\PYZdl{}(}dirname \PY{l+s+si}{\PYZdl{}\PYZob{}}\PY{n+nv}{i}\PY{l+s+si}{\PYZcb{}}\PY{k}{)}/\PY{k}{\PYZdl{}(}basename \PY{l+s+si}{\PYZdl{}\PYZob{}}\PY{n+nv}{i}\PY{l+s+si}{\PYZcb{}} .bam\PY{k}{)}.sort.sam \PY{l+s+si}{\PYZdl{}\PYZob{}}\PY{n+nv}{i}\PY{l+s+si}{\PYZcb{}}
+            \PY{k}{fi}
+        \PY{k}{done}
+\end{Verbatim}
+
+    Either SeqMonk or the the Integrative Genomics Viewer (IGV) can be used
+to visualize the resulting sorted \texttt{SAM} files.
+
+We will later use the \texttt{methylKit} package to import the
+methylation data into \texttt{R} from the sorted \texttt{SAM} files.
+
+    \hypertarget{methylation-extraction-using-bismark-methylation-extractor}{%
+\section{\texorpdfstring{Methylation extraction using
+\texttt{Bismark} methylation
+extractor}{5. Methylation extraction using Bismark methylation extractor}}\label{methylation-extraction-using-bismark-methylation-extractor}}
+
+    With the \texttt{bismark\_methylation\_extractor} command, we extract
+the methylation call for every single Cytosine analyzed. This process
+takes as input the resulting \texttt{BAM} file from \texttt{Bismark}
+aligner. The \texttt{bismark\_methylation\_extractor} command writes the
+position of every single Cytosine to a new output file, depending on its
+context (CpG, CHG or CHH), whereby methylated Cytosines are labelled as
+forward reads (+), non-methylated Cytosines as reverse reads (-).
+
+\texttt{SeqMonk}, a genome viewer, can be used to visualize the output
+files.
+
+    We store the output of the \texttt{Bismark} methylation extractor in the
+\texttt{methylation\_data} folder.
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Extract methylation data}
+        {\color{magenta}{cut}} \PYZhy{}f5 samples.txt \PY{p}{|} {\color{magenta}{xargs}} \PYZhy{}i bash \PYZhy{}c \PY{l+s+se}{\PYZbs{}}
+                \PY{l+s+s1}{\PYZsq{}v=\PYZob{}\PYZcb{}; mkdir \PYZhy{}p bismark\PYZus{}methCalls/\PYZdl{}\PYZob{}v\PYZcb{}; \PYZbs{}}
+        \PY{l+s+s1}{            bismark\PYZus{}methylation\PYZus{}extractor \PYZhy{}\PYZhy{}parallel 8 \PYZbs{}}
+        \PY{l+s+s1}{                    \PYZhy{}\PYZhy{}gzip \PYZbs{}}
+        \PY{l+s+s1}{                    \PYZhy{}\PYZhy{}bedGraph \PYZbs{}}
+        \PY{l+s+s1}{                    \PYZhy{}\PYZhy{}buffer\PYZus{}size 40G \PYZbs{}}
+        \PY{l+s+s1}{                    \PYZhy{}\PYZhy{}merge\PYZus{}non\PYZus{}CpG \PYZbs{}}
+        \PY{l+s+s1}{                    \PYZhy{}\PYZhy{}comprehensive \PYZbs{}}
+        \PY{l+s+s1}{                    \PYZhy{}\PYZhy{}output bismark\PYZus{}methCalls/\PYZdl{}\PYZob{}v\PYZcb{} alignment\PYZus{}Bismark/\PYZdl{}\PYZob{}v\PYZcb{}/*\PYZus{}pe.bam\PYZsq{}}
+\end{Verbatim}
+
+    
+
+    In another tutorial, we will analyze DNA methylation data from the
+generated sorted \texttt{SAM} files from this tutorial using the
+\texttt{MethylKit} package in \texttt{R}.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
